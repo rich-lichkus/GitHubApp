@@ -59,12 +59,12 @@
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="kNw-Jp-jWR">
+                                <searchBar key="tableHeaderView" contentMode="redraw" searchBarStyle="minimal" id="W4K-QY-Mfx">
                                     <rect key="frame" x="0.0" y="64" width="320" height="44"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     <textInputTraits key="textInputTraits"/>
                                     <connections>
-                                        <outlet property="delegate" destination="zs9-XJ-iTk" id="j3l-YG-QAm"/>
+                                        <outlet property="delegate" destination="zs9-XJ-iTk" id="Rpe-KY-Z7c"/>
                                     </connections>
                                 </searchBar>
                                 <prototypes>
@@ -76,7 +76,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="9zb-ij-23r" kind="push" id="gLG-cT-yK2"/>
+                                            <segue destination="9zb-ij-23r" kind="push" identifier="pushToDetailVC" id="Cid-nr-MpX"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,8 +93,8 @@
                     </navigationItem>
                     <connections>
                         <outlet property="bbiMenu" destination="fHp-Xm-g7o" id="yRp-12-7JL"/>
-                        <outlet property="searchDisplayController" destination="glc-9b-Nr8" id="JDP-HB-l4r"/>
-                        <outlet property="srcSearchBar" destination="kNw-Jp-jWR" id="qxh-pu-a5D"/>
+                        <outlet property="searchDisplayController" destination="glc-9b-Nr8" id="wYZ-kh-bR8"/>
+                        <outlet property="srcSearchBar" destination="W4K-QY-Mfx" id="RuD-lj-UBe"/>
                         <outlet property="tblDisplayItems" destination="gR9-Fm-oG6" id="7SL-4v-VqJ"/>
                     </connections>
                 </viewController>
@@ -102,7 +102,7 @@
                 <searchDisplayController id="glc-9b-Nr8">
                     <connections>
                         <outlet property="delegate" destination="zs9-XJ-iTk" id="Kph-MF-N0v"/>
-                        <outlet property="searchBar" destination="kNw-Jp-jWR" id="TG7-lo-akj"/>
+                        <outlet property="searchBar" destination="W4K-QY-Mfx" id="bMd-R8-MBc"/>
                         <outlet property="searchContentsController" destination="zs9-XJ-iTk" id="e9c-gA-kkw"/>
                         <outlet property="searchResultsDataSource" destination="zs9-XJ-iTk" id="Dzm-jB-vwP"/>
                         <outlet property="searchResultsDelegate" destination="zs9-XJ-iTk" id="pjS-jI-QHh"/>

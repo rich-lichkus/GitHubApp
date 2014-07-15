@@ -11,6 +11,9 @@
 
 @interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
+@property (strong, nonatomic) NSMutableArray *allItems;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+
 @property (weak, nonatomic) IBOutlet UITableView *tblDisplayItems;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bbiMenu;
 @property (weak, nonatomic) IBOutlet UISearchBar *srcSearchBar;
@@ -43,27 +46,64 @@
 
 - (IBAction)pressedMenu:(id)sender {
     [self.delegate menuClicked];
-    NSLog(@"pressedMenu");
 }
 
-#pragma mark - Search Bar 
+#pragma mark - Search
 
+-(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
+
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@",searchString];
+    self.searchResults = [[self.allItems filteredArrayUsingPredicate:predicate] mutableCopy];
+    
+    return YES;
+}
 
 #pragma mark - Table View
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 10;
+    
+    if(tableView == self.searchDisplayController.searchResultsTableView){
+        return self.searchResults.count;
+    } else {
+        return self.allItems.count;
+    }
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"displayResult" forIndexPath:indexPath];
+    /*
+      /// Interesting 
+      Symptoms:  Push segue was not showing
+      Situation: Search display controller with view containing a tableview
+      Fix:       in dequeue method replaced tableview for self.tblDisplayItems
+    */
+    UITableViewCell *cell = [self.tblDisplayItems dequeueReusableCellWithIdentifier:@"displayResult" forIndexPath:indexPath];
     
-    cell.textLabel.text = @"Repo";
+    
+    if(tableView == self.searchDisplayController.searchResultsTableView){
+        cell.textLabel.text = self.searchResults[indexPath.row];
+    } else {
+        cell.textLabel.text = self.allItems[indexPath.row];
+    }
     
     return cell;
 }
 
+#pragma mark - Lazy
+
+- (NSMutableArray*)searchResults{
+    if(!_searchResults){
+        _searchResults = [NSMutableArray new];
+    }
+    return _searchResults;
+}
+
+- (NSMutableArray*)allItems{
+    if(!_allItems){
+        _allItems = [NSMutableArray arrayWithObjects:@"Richard", @"Spencer", @"Tod", @"Chicken", nil];
+    }
+    return _allItems;
+}
 
 #pragma mark - Memory
 
