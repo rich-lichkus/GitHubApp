@@ -8,6 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol CKTopVCDelegate <NSObject>
+
+- (void)menuClicked;
+
+@end
+
+
 @interface CKTopVC : UIViewController
+
+@property (nonatomic, unsafe_unretained) id<CKTopVCDelegate> delegate;
 
 @end

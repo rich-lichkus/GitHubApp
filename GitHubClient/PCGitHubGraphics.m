@@ -15,15 +15,40 @@
 
 #pragma mark Cache
 
+static UIColor* _loginBlueColor = nil;
+static UIColor* _loginBlueColor2 = nil;
+
+static PCGradient* _loginBlue = nil;
+
 static UIImage* _imageOfThreeBarMenu = nil;
 static UIImage* _imageOfUser = nil;
 static UIImage* _imageOfRepo = nil;
+static UIImage* _imageOfDisabledButton = nil;
+static UIImage* _imageOfEnabledButton = nil;
+static UIImage* _imageOfLocked = nil;
 
 #pragma mark Initialization
 
 + (void)initialize
 {
+    // Colors Initialization
+    _loginBlueColor = [UIColor colorWithRed: 0 green: 0.527 blue: 1 alpha: 1];
+    _loginBlueColor2 = [UIColor colorWithRed: 0.05 green: 0 blue: 1 alpha: 1];
+
+    // Gradients Initialization
+    CGFloat loginBlueLocations[] = {0, 0.46, 1};
+    _loginBlue = [PCGradient gradientWithColors: @[PCGitHubGraphics.loginBlueColor, [UIColor colorWithRed: 0.025 green: 0.264 blue: 1 alpha: 1], PCGitHubGraphics.loginBlueColor2] locations: loginBlueLocations];
+
 }
+
+#pragma mark Colors
+
++ (UIColor*)loginBlueColor { return _loginBlueColor; }
++ (UIColor*)loginBlueColor2 { return _loginBlueColor2; }
+
+#pragma mark Gradients
+
++ (PCGradient*)loginBlue { return _loginBlue; }
 
 #pragma mark Drawing Methods
 
@@ -114,6 +139,92 @@ static UIImage* _imageOfRepo = nil;
     [bezier5Path stroke];
 }
 
++ (void)drawDisabledButton;
+{
+
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, 240, 40) cornerRadius: 5];
+    [UIColor.grayColor setFill];
+    [rectanglePath fill];
+}
+
++ (void)drawEnabledButton;
+{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    //// Rectangle Drawing
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, 240, 40) cornerRadius: 5];
+    CGContextSaveGState(context);
+    [rectanglePath addClip];
+    CGContextDrawLinearGradient(context, PCGitHubGraphics.loginBlue.CGGradient, CGPointMake(120, -0), CGPointMake(120, 40), 0);
+    CGContextRestoreGState(context);
+}
+
++ (void)drawLocked;
+{
+    //// General Declarations
+    CGContextRef context = UIGraphicsGetCurrentContext();
+
+    //// Rectangle Drawing
+    CGContextSaveGState(context);
+    CGContextTranslateCTM(context, 15, 18);
+
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(-6, -4.5, 12, 9) cornerRadius: 1];
+    [UIColor.whiteColor setStroke];
+    rectanglePath.lineWidth = 1;
+    [rectanglePath stroke];
+
+    CGContextRestoreGState(context);
+
+
+    //// Bezier Drawing
+    UIBezierPath* bezierPath = UIBezierPath.bezierPath;
+    [bezierPath moveToPoint: CGPointMake(11.25, 9.5)];
+    [bezierPath addCurveToPoint: CGPointMake(12.35, 7.03) controlPoint1: CGPointMake(11.25, 8.6) controlPoint2: CGPointMake(11.62, 7.71)];
+    [bezierPath addCurveToPoint: CGPointMake(17.65, 7.03) controlPoint1: CGPointMake(13.81, 5.66) controlPoint2: CGPointMake(16.19, 5.66)];
+    [bezierPath addCurveToPoint: CGPointMake(18.75, 9.5) controlPoint1: CGPointMake(18.38, 7.71) controlPoint2: CGPointMake(18.75, 8.6)];
+    [UIColor.whiteColor setStroke];
+    bezierPath.lineWidth = 1;
+    [bezierPath stroke];
+
+
+    //// Bezier 2 Drawing
+    UIBezierPath* bezier2Path = UIBezierPath.bezierPath;
+    [bezier2Path moveToPoint: CGPointMake(11.25, 9.5)];
+    [bezier2Path addLineToPoint: CGPointMake(11.25, 13.5)];
+    [UIColor.whiteColor setStroke];
+    bezier2Path.lineWidth = 1;
+    [bezier2Path stroke];
+
+
+    //// Bezier 3 Drawing
+    UIBezierPath* bezier3Path = UIBezierPath.bezierPath;
+    [bezier3Path moveToPoint: CGPointMake(11.5, 16.5)];
+    [bezier3Path addCurveToPoint: CGPointMake(18.5, 16.5) controlPoint1: CGPointMake(18.5, 16.5) controlPoint2: CGPointMake(18.5, 16.5)];
+    [UIColor.whiteColor setStroke];
+    bezier3Path.lineWidth = 1;
+    [bezier3Path stroke];
+
+
+    //// Bezier 4 Drawing
+    UIBezierPath* bezier4Path = UIBezierPath.bezierPath;
+    [bezier4Path moveToPoint: CGPointMake(11.5, 19.5)];
+    [bezier4Path addCurveToPoint: CGPointMake(18.5, 19.5) controlPoint1: CGPointMake(18.5, 19.5) controlPoint2: CGPointMake(18.5, 19.5)];
+    [UIColor.whiteColor setStroke];
+    bezier4Path.lineWidth = 1;
+    [bezier4Path stroke];
+
+
+    //// Bezier 5 Drawing
+    UIBezierPath* bezier5Path = UIBezierPath.bezierPath;
+    [bezier5Path moveToPoint: CGPointMake(18.75, 9.5)];
+    [bezier5Path addLineToPoint: CGPointMake(18.75, 13.5)];
+    [UIColor.whiteColor setStroke];
+    bezier5Path.lineWidth = 1;
+    [bezier5Path stroke];
+}
+
 #pragma mark Generated Images
 
 + (UIImage*)imageOfThreeBarMenu;
@@ -155,6 +266,45 @@ static UIImage* _imageOfRepo = nil;
     return _imageOfRepo;
 }
 
++ (UIImage*)imageOfDisabledButton;
+{
+    if (_imageOfDisabledButton)
+        return _imageOfDisabledButton;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(240, 40), NO, 0.0f);
+    [PCGitHubGraphics drawDisabledButton];
+    _imageOfDisabledButton = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfDisabledButton;
+}
+
++ (UIImage*)imageOfEnabledButton;
+{
+    if (_imageOfEnabledButton)
+        return _imageOfEnabledButton;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(240, 40), NO, 0.0f);
+    [PCGitHubGraphics drawEnabledButton];
+    _imageOfEnabledButton = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfEnabledButton;
+}
+
++ (UIImage*)imageOfLocked;
+{
+    if (_imageOfLocked)
+        return _imageOfLocked;
+
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(30, 30), NO, 0.0f);
+    [PCGitHubGraphics drawLocked];
+    _imageOfLocked = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return _imageOfLocked;
+}
+
 #pragma mark Customization Infrastructure
 
 - (void)setThreeBarMenuTargets: (NSArray*)threeBarMenuTargets
@@ -181,5 +331,73 @@ static UIImage* _imageOfRepo = nil;
         [target setImage: PCGitHubGraphics.imageOfRepo];
 }
 
+- (void)setDisabledButtonTargets: (NSArray*)disabledButtonTargets
+{
+    _disabledButtonTargets = disabledButtonTargets;
+
+    for (id target in self.disabledButtonTargets)
+        [target setImage: PCGitHubGraphics.imageOfDisabledButton];
+}
+
+- (void)setEnabledButtonTargets: (NSArray*)enabledButtonTargets
+{
+    _enabledButtonTargets = enabledButtonTargets;
+
+    for (id target in self.enabledButtonTargets)
+        [target setImage: PCGitHubGraphics.imageOfEnabledButton];
+}
+
+- (void)setLockedTargets: (NSArray*)lockedTargets
+{
+    _lockedTargets = lockedTargets;
+
+    for (id target in self.lockedTargets)
+        [target setImage: PCGitHubGraphics.imageOfLocked];
+}
+
+
+@end
+
+
+
+@interface PCGradient ()
+{
+    CGGradientRef _CGGradient;
+}
+@end
+
+@implementation PCGradient
+
+- (instancetype)initWithColors: (NSArray*)colors locations: (const CGFloat*)locations
+{
+    self = super.init;
+    if (self)
+    {
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        NSMutableArray* cgColors = NSMutableArray.array;
+        for (UIColor* color in colors)
+            [cgColors addObject: (id)color.CGColor];
+
+        _CGGradient = CGGradientCreateWithColors(colorSpace, (__bridge CFArrayRef)cgColors, locations);
+        CGColorSpaceRelease(colorSpace);
+    }
+    return self;
+}
+
++ (instancetype)gradientWithColors: (NSArray*)colors locations: (const CGFloat*)locations
+{
+    return [self.alloc initWithColors: colors locations: locations];
+}
+
++ (instancetype)gradientWithStartingColor: (UIColor*)startingColor endingColor: (UIColor*)endingColor
+{
+    CGFloat locations[] = {0, 1};
+    return [self.alloc initWithColors: @[startingColor, endingColor] locations: locations];
+}
+
+- (void)dealloc
+{
+    CGGradientRelease(_CGGradient);
+}
 
 @end

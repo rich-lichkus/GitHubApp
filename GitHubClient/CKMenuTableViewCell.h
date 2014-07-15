@@ -10,4 +10,6 @@
 
 @interface CKMenuTableViewCell : UITableViewCell
 
+@property (strong, nonatomic) UIView *uivSeparator;
+
 @end

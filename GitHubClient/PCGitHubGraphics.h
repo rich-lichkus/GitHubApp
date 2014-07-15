@@ -12,21 +12,50 @@
 #import <UIKit/UIKit.h>
 
 
+@class PCGradient;
+
 @interface PCGitHubGraphics : NSObject
 
 // iOS Controls Customization Outlets
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* threeBarMenuTargets;
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* userTargets;
 @property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* repoTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* disabledButtonTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* enabledButtonTargets;
+@property(strong, nonatomic) IBOutletCollection(NSObject) NSArray* lockedTargets;
+
+// Colors
++ (UIColor*)loginBlueColor;
++ (UIColor*)loginBlueColor2;
+
+// Gradients
++ (PCGradient*)loginBlue;
 
 // Drawing Methods
 + (void)drawThreeBarMenu;
 + (void)drawUser;
 + (void)drawRepo;
++ (void)drawDisabledButton;
++ (void)drawEnabledButton;
++ (void)drawLocked;
 
 // Generated Images
 + (UIImage*)imageOfThreeBarMenu;
 + (UIImage*)imageOfUser;
 + (UIImage*)imageOfRepo;
++ (UIImage*)imageOfDisabledButton;
++ (UIImage*)imageOfEnabledButton;
++ (UIImage*)imageOfLocked;
+
+@end
+
+
+
+@interface PCGradient : NSObject
+@property(nonatomic, readonly) CGGradientRef CGGradient;
+- (CGGradientRef)CGGradient NS_RETURNS_INNER_POINTER;
+
++ (instancetype)gradientWithColors: (NSArray*)colors locations: (const CGFloat*)locations;
++ (instancetype)gradientWithStartingColor: (UIColor*)startingColor endingColor: (UIColor*)endingColor;
 
 @end

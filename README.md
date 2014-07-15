@@ -3,7 +3,7 @@ GitHubApp
 
 GitHub Client iOS Application
 
-Developer: Richard Lichkus </r>
+Developer: Richard Lichkus
 Platform: iOS 7.1
 Language: Objective-C
 

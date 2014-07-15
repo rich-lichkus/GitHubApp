@@ -8,6 +8,10 @@
 
 #import "CKDetailVC.h"
 
+@interface CKDetailVC ()
+
+@end
+
 @implementation CKDetailVC
 
 @end

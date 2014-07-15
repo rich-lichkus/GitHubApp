@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */; };
+		0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FE21974570F0001DD67 /* CKMenuTableViewCell.m */; };
+		0FBC7FEE1974F1160001DD67 /* CKDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FED1974F1160001DD67 /* CKDetailVC.m */; };
 		0FD5F7DC19744948008A0CC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7DB19744948008A0CC4 /* Foundation.framework */; };
 		0FD5F7DE19744948008A0CC4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7DD19744948008A0CC4 /* CoreGraphics.framework */; };
 		0FD5F7E019744948008A0CC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7DF19744948008A0CC4 /* UIKit.framework */; };
@@ -14,13 +17,14 @@
 		0FD5F7E819744948008A0CC4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F7E719744948008A0CC4 /* main.m */; };
 		0FD5F7EC19744948008A0CC4 /* CKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F7EB19744948008A0CC4 /* CKAppDelegate.m */; };
 		0FD5F7EF19744948008A0CC4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FD5F7ED19744948008A0CC4 /* Main.storyboard */; };
-		0FD5F7F219744948008A0CC4 /* CKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F7F119744948008A0CC4 /* CKViewController.m */; };
 		0FD5F7F419744948008A0CC4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FD5F7F319744948008A0CC4 /* Images.xcassets */; };
 		0FD5F7FB19744948008A0CC4 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7FA19744948008A0CC4 /* XCTest.framework */; };
 		0FD5F7FC19744948008A0CC4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7DB19744948008A0CC4 /* Foundation.framework */; };
 		0FD5F7FD19744948008A0CC4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7DF19744948008A0CC4 /* UIKit.framework */; };
 		0FD5F80519744948008A0CC4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0FD5F80319744948008A0CC4 /* InfoPlist.strings */; };
 		0FD5F80719744948008A0CC4 /* GitHubClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F80619744948008A0CC4 /* GitHubClientTests.m */; };
+		0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81119744A22008A0CC4 /* CKRootVC.m */; };
+		0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81519744B91008A0CC4 /* CKTopVC.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +38,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0FBC7FDD1974565E0001DD67 /* PCGitHubGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGitHubGraphics.h; sourceTree = "<group>"; };
+		0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGitHubGraphics.m; sourceTree = "<group>"; };
+		0FBC7FE11974570F0001DD67 /* CKMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMenuTableViewCell.h; sourceTree = "<group>"; };
+		0FBC7FE21974570F0001DD67 /* CKMenuTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKMenuTableViewCell.m; sourceTree = "<group>"; };
+		0FBC7FE4197490CF0001DD67 /* CKConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKConstants.h; sourceTree = "<group>"; };
+		0FBC7FEC1974F1160001DD67 /* CKDetailVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKDetailVC.h; sourceTree = "<group>"; };
+		0FBC7FED1974F1160001DD67 /* CKDetailVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKDetailVC.m; sourceTree = "<group>"; };
 		0FD5F7D819744948008A0CC4 /* GitHubClient.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GitHubClient.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD5F7DB19744948008A0CC4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0FD5F7DD19744948008A0CC4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -45,14 +56,16 @@
 		0FD5F7EA19744948008A0CC4 /* CKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKAppDelegate.h; sourceTree = "<group>"; };
 		0FD5F7EB19744948008A0CC4 /* CKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CKAppDelegate.m; sourceTree = "<group>"; };
 		0FD5F7EE19744948008A0CC4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0FD5F7F019744948008A0CC4 /* CKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CKViewController.h; sourceTree = "<group>"; };
-		0FD5F7F119744948008A0CC4 /* CKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CKViewController.m; sourceTree = "<group>"; };
 		0FD5F7F319744948008A0CC4 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		0FD5F7F919744948008A0CC4 /* GitHubClientTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GitHubClientTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FD5F7FA19744948008A0CC4 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		0FD5F80219744948008A0CC4 /* GitHubClientTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GitHubClientTests-Info.plist"; sourceTree = "<group>"; };
 		0FD5F80419744948008A0CC4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0FD5F80619744948008A0CC4 /* GitHubClientTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GitHubClientTests.m; sourceTree = "<group>"; };
+		0FD5F81019744A22008A0CC4 /* CKRootVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKRootVC.h; sourceTree = "<group>"; };
+		0FD5F81119744A22008A0CC4 /* CKRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRootVC.m; sourceTree = "<group>"; };
+		0FD5F81419744B91008A0CC4 /* CKTopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTopVC.h; sourceTree = "<group>"; };
+		0FD5F81519744B91008A0CC4 /* CKTopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTopVC.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +92,42 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0FBC7FDC1974564C0001DD67 /* Media */ = {
+			isa = PBXGroup;
+			children = (
+				0FD5F7F319744948008A0CC4 /* Images.xcassets */,
+				0FBC7FDD1974565E0001DD67 /* PCGitHubGraphics.h */,
+				0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */,
+			);
+			name = Media;
+			sourceTree = "<group>";
+		};
+		0FBC7FE0197456EB0001DD67 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0FBC7FE11974570F0001DD67 /* CKMenuTableViewCell.h */,
+				0FBC7FE21974570F0001DD67 /* CKMenuTableViewCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		0FBC7FE71974EFA90001DD67 /* Organizational */ = {
+			isa = PBXGroup;
+			children = (
+				0FBC7FE4197490CF0001DD67 /* CKConstants.h */,
+			);
+			name = Organizational;
+			sourceTree = "<group>";
+		};
+		0FBC7FE81974EFCE0001DD67 /* Detail VC */ = {
+			isa = PBXGroup;
+			children = (
+				0FBC7FEC1974F1160001DD67 /* CKDetailVC.h */,
+				0FBC7FED1974F1160001DD67 /* CKDetailVC.m */,
+			);
+			name = "Detail VC";
+			sourceTree = "<group>";
+		};
 		0FD5F7CF19744948008A0CC4 = {
 			isa = PBXGroup;
 			children = (
@@ -115,9 +164,11 @@
 				0FD5F7EA19744948008A0CC4 /* CKAppDelegate.h */,
 				0FD5F7EB19744948008A0CC4 /* CKAppDelegate.m */,
 				0FD5F7ED19744948008A0CC4 /* Main.storyboard */,
-				0FD5F7F019744948008A0CC4 /* CKViewController.h */,
-				0FD5F7F119744948008A0CC4 /* CKViewController.m */,
-				0FD5F7F319744948008A0CC4 /* Images.xcassets */,
+				0FD5F81319744A2B008A0CC4 /* Root VC */,
+				0FD5F81719744BA4008A0CC4 /* Top Vc */,
+				0FBC7FE81974EFCE0001DD67 /* Detail VC */,
+				0FBC7FDC1974564C0001DD67 /* Media */,
+				0FBC7FE71974EFA90001DD67 /* Organizational */,
 				0FD5F7E219744948008A0CC4 /* Supporting Files */,
 			);
 			path = GitHubClient;
@@ -150,6 +201,25 @@
 				0FD5F80319744948008A0CC4 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0FD5F81319744A2B008A0CC4 /* Root VC */ = {
+			isa = PBXGroup;
+			children = (
+				0FD5F81019744A22008A0CC4 /* CKRootVC.h */,
+				0FD5F81119744A22008A0CC4 /* CKRootVC.m */,
+				0FBC7FE0197456EB0001DD67 /* Cell */,
+			);
+			name = "Root VC";
+			sourceTree = "<group>";
+		};
+		0FD5F81719744BA4008A0CC4 /* Top Vc */ = {
+			isa = PBXGroup;
+			children = (
+				0FD5F81419744B91008A0CC4 /* CKTopVC.h */,
+				0FD5F81519744B91008A0CC4 /* CKTopVC.m */,
+			);
+			name = "Top Vc";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,9 +320,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FBC7FEE1974F1160001DD67 /* CKDetailVC.m in Sources */,
 				0FD5F7EC19744948008A0CC4 /* CKAppDelegate.m in Sources */,
 				0FD5F7E819744948008A0CC4 /* main.m in Sources */,
-				0FD5F7F219744948008A0CC4 /* CKViewController.m in Sources */,
+				0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */,
+				0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */,
+				0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */,
+				0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -457,6 +531,7 @@
 				0FD5F80C19744948008A0CC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		0FD5F80D19744948008A0CC4 /* Build configuration list for PBXNativeTarget "GitHubClientTests" */ = {
 			isa = XCConfigurationList;
@@ -465,6 +540,7 @@
 				0FD5F80F19744948008A0CC4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CKConstants : NSObject
-
-@end
+typedef NS_ENUM (NSInteger, kLoginElementTags){
+    kLoginUsernameTxtTag = 0,
+    kLoginPasswordTxtTag
+};
