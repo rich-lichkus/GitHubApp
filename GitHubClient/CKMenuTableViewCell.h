@@ -1,5 +1,5 @@
 //
-//  CKViewController.h
+//  CKMenuTableViewCell.h
 //  GitHubClient
 //
 //  Created by Richard Lichkus on 7/14/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CKViewController : UIViewController
+@interface CKMenuTableViewCell : UITableViewCell
 
 @end
