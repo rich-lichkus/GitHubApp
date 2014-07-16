@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CKOAuthController.h"
 
 @interface CKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
+@property (strong, nonatomic) CKOAuthController *oauthController;
 
 @end

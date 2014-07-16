@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F66C6241975DDB100B3DA3C /* CKOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F66C6231975DDB100B3DA3C /* CKOAuthController.m */; };
 		0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */; };
 		0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FE21974570F0001DD67 /* CKMenuTableViewCell.m */; };
 		0FBC7FEE1974F1160001DD67 /* CKDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FED1974F1160001DD67 /* CKDetailVC.m */; };
@@ -38,6 +39,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F66C6221975DDB100B3DA3C /* CKOAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOAuthController.h; sourceTree = "<group>"; };
+		0F66C6231975DDB100B3DA3C /* CKOAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOAuthController.m; sourceTree = "<group>"; };
 		0FBC7FDD1974565E0001DD67 /* PCGitHubGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGitHubGraphics.h; sourceTree = "<group>"; };
 		0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGitHubGraphics.m; sourceTree = "<group>"; };
 		0FBC7FE11974570F0001DD67 /* CKMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -92,6 +95,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0F66C6251975DDC200B3DA3C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0FD5F81319744A2B008A0CC4 /* Root VC */,
+				0FD5F81719744BA4008A0CC4 /* Top VC */,
+				0FBC7FE81974EFCE0001DD67 /* Detail VC */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		0F66C6261975DDCF00B3DA3C /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				0F66C6221975DDB100B3DA3C /* CKOAuthController.h */,
+				0F66C6231975DDB100B3DA3C /* CKOAuthController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
 		0FBC7FDC1974564C0001DD67 /* Media */ = {
 			isa = PBXGroup;
 			children = (
@@ -164,9 +186,8 @@
 				0FD5F7EA19744948008A0CC4 /* CKAppDelegate.h */,
 				0FD5F7EB19744948008A0CC4 /* CKAppDelegate.m */,
 				0FD5F7ED19744948008A0CC4 /* Main.storyboard */,
-				0FD5F81319744A2B008A0CC4 /* Root VC */,
-				0FD5F81719744BA4008A0CC4 /* Top Vc */,
-				0FBC7FE81974EFCE0001DD67 /* Detail VC */,
+				0F66C6251975DDC200B3DA3C /* View Controllers */,
+				0F66C6261975DDCF00B3DA3C /* Controllers */,
 				0FBC7FDC1974564C0001DD67 /* Media */,
 				0FBC7FE71974EFA90001DD67 /* Organizational */,
 				0FD5F7E219744948008A0CC4 /* Supporting Files */,
@@ -213,13 +234,13 @@
 			name = "Root VC";
 			sourceTree = "<group>";
 		};
-		0FD5F81719744BA4008A0CC4 /* Top Vc */ = {
+		0FD5F81719744BA4008A0CC4 /* Top VC */ = {
 			isa = PBXGroup;
 			children = (
 				0FD5F81419744B91008A0CC4 /* CKTopVC.h */,
 				0FD5F81519744B91008A0CC4 /* CKTopVC.m */,
 			);
-			name = "Top Vc";
+			name = "Top VC";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +342,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FBC7FEE1974F1160001DD67 /* CKDetailVC.m in Sources */,
+				0F66C6241975DDB100B3DA3C /* CKOAuthController.m in Sources */,
 				0FD5F7EC19744948008A0CC4 /* CKAppDelegate.m in Sources */,
 				0FD5F7E819744948008A0CC4 /* main.m in Sources */,
 				0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */,

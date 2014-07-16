@@ -11,6 +11,8 @@
 #import "CKMenuTableViewCell.h"
 #import "PCGitHubGraphics.h"
 #import "CKConstants.h"
+#import "CKAppDelegate.h"
+#import "CKOAuthController.h"
 
 #define CELL_SEPARATOR_HEIGHT 1
 #define PERCENTAGE_VIEW_WIDTH .70
@@ -20,6 +22,8 @@
 
 @interface CKRootVC () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CKTopVCDelegate, UITextFieldDelegate>
 
+@property (weak, nonatomic) CKAppDelegate *appDelegate;
+@property (weak, nonatomic) CKOAuthController *oAuthController;
 @property (weak, nonatomic) CKTopVC *topVC;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) NSArray *menuTitles;
@@ -124,6 +128,11 @@
     NSLog(@"%@", NSStringFromCGRect(self.btnLogin.frame));
     [self.uivBottomView addSubview:self.btnLogin];
     [self.view addSubview:self.uivBottomView];
+    
+    // OAuth
+    self.appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
+    self.oAuthController = self.appDelegate.oauthController;
+   // [self.oAuthController performSelector:@selector(requestOAuthAccess) withObject:Nil afterDelay:.1];
 }
 
 -(void)configureTableView{
