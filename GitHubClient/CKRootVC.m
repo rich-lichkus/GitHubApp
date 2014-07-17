@@ -133,6 +133,9 @@
     self.appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
     self.oAuthController = self.appDelegate.oauthController;
    // [self.oAuthController performSelector:@selector(requestOAuthAccess) withObject:Nil afterDelay:.1];
+    
+    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
+    
 }
 
 -(void)configureTableView{

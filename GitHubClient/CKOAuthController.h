@@ -24,4 +24,6 @@
 
 -(void)getUser;
 
+-(void)getWeatherForCity:(NSString*)cityName andState:(NSString*)stateAbbreviation;
+
 @end

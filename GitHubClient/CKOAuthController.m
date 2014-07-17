@@ -91,4 +91,44 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString]];
 }
 
+
+-(void)getWeatherForCity:(NSString*)cityName andState:(NSString*)stateAbbreviation{
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL: [NSURL URLWithString:[NSString stringWithFormat: @"http://api.openweathermap.org/data/2.5/weather?q=%@,%@",cityName, stateAbbreviation]]];
+    
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        
+        if(!error){
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            switch (httpResponse.statusCode) {
+                case 200: // All good
+                {
+                    NSError *jsonError = [NSError new];
+                    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                    
+                    float temperatureKelvin = [[[json valueForKey:@"main"] valueForKey:@"temp"] floatValue];
+                    float temperatureFar = (temperatureKelvin - 273.0)*1.8 +32;
+                    
+                    NSLog(@"Today's temperature in %@, %@ is %f degress.", json[@"name"], json[@"sys"][@"country"], temperatureFar);
+                }
+                    break;
+                default:
+                {
+                    NSLog(@"%li", (long)httpResponse.statusCode);
+                }
+                    break;
+            }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+    }];
+    
+    [dataTask resume];
+}
+
+
+
 @end
