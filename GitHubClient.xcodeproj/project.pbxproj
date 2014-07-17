@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F66C6241975DDB100B3DA3C /* CKOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F66C6231975DDB100B3DA3C /* CKOAuthController.m */; };
+		0F66C62C1978862600B3DA3C /* CKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F66C62B1978862600B3DA3C /* CKActivityIndicator.m */; };
 		0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */; };
 		0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FE21974570F0001DD67 /* CKMenuTableViewCell.m */; };
 		0FBC7FEE1974F1160001DD67 /* CKDetailVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FED1974F1160001DD67 /* CKDetailVC.m */; };
@@ -41,6 +42,8 @@
 /* Begin PBXFileReference section */
 		0F66C6221975DDB100B3DA3C /* CKOAuthController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKOAuthController.h; sourceTree = "<group>"; };
 		0F66C6231975DDB100B3DA3C /* CKOAuthController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKOAuthController.m; sourceTree = "<group>"; };
+		0F66C62A1978862600B3DA3C /* CKActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKActivityIndicator.h; path = GitHubClient/CKActivityIndicator.h; sourceTree = "<group>"; };
+		0F66C62B1978862600B3DA3C /* CKActivityIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKActivityIndicator.m; path = GitHubClient/CKActivityIndicator.m; sourceTree = "<group>"; };
 		0FBC7FDD1974565E0001DD67 /* PCGitHubGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGitHubGraphics.h; sourceTree = "<group>"; };
 		0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGitHubGraphics.m; sourceTree = "<group>"; };
 		0FBC7FE11974570F0001DD67 /* CKMenuTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKMenuTableViewCell.h; sourceTree = "<group>"; };
@@ -153,6 +156,8 @@
 		0FD5F7CF19744948008A0CC4 = {
 			isa = PBXGroup;
 			children = (
+				0F66C62A1978862600B3DA3C /* CKActivityIndicator.h */,
+				0F66C62B1978862600B3DA3C /* CKActivityIndicator.m */,
 				0FD5F7E119744948008A0CC4 /* GitHubClient */,
 				0FD5F80019744948008A0CC4 /* GitHubClientTests */,
 				0FD5F7DA19744948008A0CC4 /* Frameworks */,
@@ -348,6 +353,7 @@
 				0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */,
 				0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */,
 				0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */,
+				0F66C62C1978862600B3DA3C /* CKActivityIndicator.m in Sources */,
 				0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

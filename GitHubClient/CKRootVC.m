@@ -20,7 +20,7 @@
 #define UIBUTTON_HEIGHT 40
 #define TEXTFIELD_PADDING 10
 
-@interface CKRootVC () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CKTopVCDelegate, UITextFieldDelegate>
+@interface CKRootVC () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CKTopVCDelegate, UITextFieldDelegate, CKOAuthControllerDataDelegate>
 
 @property (weak, nonatomic) CKAppDelegate *appDelegate;
 @property (weak, nonatomic) CKOAuthController *oAuthController;
@@ -30,6 +30,8 @@
 @property (strong, nonatomic) NSArray *menuImages;
 @property (nonatomic, getter = isRightMenuOpen) BOOL rightMenuOpen;
 @property (nonatomic, getter = isLeftMenuOpen) BOOL leftMenuOpen;
+
+@property (strong, nonatomic) UIImageView *imgCat;
 
 @property (strong, nonatomic) UIView *uivTopView;
 @property (strong, nonatomic) UITextField *txtUsername;
@@ -108,8 +110,14 @@
     self.txtPassword.tag = kLoginPasswordTxtTag;
     self.txtPassword.secureTextEntry = YES;
     
+    /////
+    self.imgCat = [[UIImageView alloc] initWithFrame:self.uivTopView.frame];
+    self.imgCat.image = [UIImage imageNamed:@"bird_blue_48"];
+    
+
     [self.uivTopView addSubview:self.txtUsername];
     [self.uivTopView addSubview:self.txtPassword];
+    [self.uivTopView addSubview:self.imgCat];
     [self.view addSubview:self.uivTopView];
 
     // Lock Screen Bottom View
@@ -132,10 +140,12 @@
     // OAuth
     self.appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
     self.oAuthController = self.appDelegate.oauthController;
+    self.oAuthController.dataDelegate = self;
+    
    // [self.oAuthController performSelector:@selector(requestOAuthAccess) withObject:Nil afterDelay:.1];
     
-    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
-    
+//    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
+    [self.oAuthController get:1 catsWithFormat:@"jpg"];
 }
 
 -(void)configureTableView{
@@ -330,6 +340,14 @@
     } else {
         [self openLeftMenu];
     }
+}
+
+-(void)didDownloadImage:(UIImage *)uiimage{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+      self.imgCat.image = uiimage;
+        [self.uivTopView setNeedsDisplay];
+    }];
+//
 }
 
 #pragma mark - Lazy Loading

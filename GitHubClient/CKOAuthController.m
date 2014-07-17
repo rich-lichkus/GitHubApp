@@ -15,7 +15,7 @@
 #define GITHUB_OAUTH_URL  @"https://github.com/login/oauth/authorize?client_id=%@&redirect_uri=%@&scope=%@"
 
 
-@interface CKOAuthController ()
+@interface CKOAuthController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate>
 
 @property (strong, nonatomic) NSString *accessToken;
 
@@ -129,6 +129,46 @@
     [dataTask resume];
 }
 
+
+
+-(void)get:(NSInteger)number catsWithFormat:(NSString*)format{
+    
+    NSURLSession *downloadSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration] delegate:self delegateQueue:nil];
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://explosionhub.com/wp-content/uploads/2012/07/kitten-next-to-fish-in-a-fish-bowl.jpg"]];
+    
+    NSURLSessionDownloadTask *downloadTask = [downloadSession downloadTaskWithRequest:urlRequest];
+    
+    [downloadTask resume];
+
+}
+
+#pragma mark - Session Delegate
+- (void)URLSession:(NSURLSession *)session dataTask:(NSURLSessionDataTask *)dataTask didReceiveData:(NSData *)data{
+    
+    NSLog(@"Delegate Called.");
+}
+
+#pragma mark - Download Delegate
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(NSURL *)location{
+
+    NSLog(@"location:%@", location);
+    NSData *data = [NSData dataWithContentsOfURL:location];
+    UIImage *catImage = [UIImage imageWithData:data];
+    
+    [self.dataDelegate didDownloadImage:catImage];
+//    NSLog(@"%f,%f",catImage.size.width,catImage.size.height);
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didWriteData:(int64_t)bytesWritten totalBytesWritten:(int64_t)totalBytesWritten totalBytesExpectedToWrite:(int64_t)totalBytesExpectedToWrite{
+    
+    NSLog(@"bytesWritten: %lli, totalBytesWritten: %lli, totalBytes: %lli", bytesWritten, totalBytesWritten, totalBytesExpectedToWrite);
+}
+
+- (void)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didResumeAtOffset:(int64_t)fileOffset expectedTotalBytes:(int64_t)expectedTotalBytes{
+    
+}
 
 
 @end

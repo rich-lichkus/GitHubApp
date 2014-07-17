@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @protocol CKOAuthControllerDataDelegate <NSObject>
-
+@optional
 - (void)didDownloadRepos:(NSMutableDictionary*)repoDictionary;
+- (void)didDownloadImage:(UIImage*)uiimage;
 
 @end
 
@@ -22,8 +23,8 @@
 -(void)authenticateUser:(NSURL*)url;
 -(void)requestOAuthAccess;
 
--(void)getUser;
-
 -(void)getWeatherForCity:(NSString*)cityName andState:(NSString*)stateAbbreviation;
+
+-(void)get:(NSInteger)number catsWithFormat:(NSString*)format;
 
 @end
