@@ -12,3 +12,14 @@ typedef NS_ENUM (NSInteger, kLoginElementTags){
     kLoginUsernameTxtTag = 0,
     kLoginPasswordTxtTag
 };
+
+typedef NS_ENUM(NSInteger, kWebService) {
+    kGitHub = 0,
+    kFacebook,
+    kFlickr,
+    kGoogle
+};
+
+typedef NS_ENUM(NSInteger, kCallbackType) {
+    kOAuth = 0
+};

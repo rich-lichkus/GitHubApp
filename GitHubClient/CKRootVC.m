@@ -31,9 +31,8 @@
 @property (nonatomic, getter = isRightMenuOpen) BOOL rightMenuOpen;
 @property (nonatomic, getter = isLeftMenuOpen) BOOL leftMenuOpen;
 
-@property (strong, nonatomic) UIImageView *imgCat;
-
 @property (strong, nonatomic) UIView *uivTopView;
+@property (strong, nonatomic) UIButton *btnGitHub;
 @property (strong, nonatomic) UITextField *txtUsername;
 @property (strong, nonatomic) UITextField *txtPassword;
 
@@ -88,6 +87,13 @@
                                                               halfScreen)];
     self.uivTopView.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.000];
     
+    self.btnGitHub = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-(uiElementWidth*.5),
+                                                               self.uivTopView.frame.size.height - (4*TEXTFIELD_HEIGHT+4*TEXTFIELD_PADDING),
+                                                               uiElementWidth,
+                                                                TEXTFIELD_HEIGHT)];
+    [self.btnGitHub setImage:[PCGitHubGraphics imageOfGitHubLogin] forState:UIControlStateNormal];
+    [self.btnGitHub addTarget:self action:@selector(pressedGitHubLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
     self.txtUsername = [[UITextField alloc] initWithFrame:CGRectMake(self.view.center.x-(uiElementWidth*.5),
                                                                      self.uivTopView.frame.size.height - (2*TEXTFIELD_HEIGHT+2*TEXTFIELD_PADDING),
                                                                      uiElementWidth,
@@ -102,22 +108,16 @@
                                                                      self.uivTopView.frame.size.height - TEXTFIELD_HEIGHT - TEXTFIELD_PADDING,
                                                                      uiElementWidth,
                                                                      TEXTFIELD_HEIGHT)];
-    NSLog(@"%@", NSStringFromCGRect(self.txtPassword.frame));
     self.txtPassword.borderStyle = UITextBorderStyleRoundedRect;
     self.txtPassword.backgroundColor = [UIColor colorWithWhite:0.800 alpha:0.250];
     self.txtPassword.placeholder = @"Password";
     self.txtPassword.delegate = self;
     self.txtPassword.tag = kLoginPasswordTxtTag;
     self.txtPassword.secureTextEntry = YES;
-    
-    /////
-    self.imgCat = [[UIImageView alloc] initWithFrame:self.uivTopView.frame];
-    self.imgCat.image = [UIImage imageNamed:@"bird_blue_48"];
-    
 
+    [self.uivTopView addSubview:self.btnGitHub];
     [self.uivTopView addSubview:self.txtUsername];
     [self.uivTopView addSubview:self.txtPassword];
-    [self.uivTopView addSubview:self.imgCat];
     [self.view addSubview:self.uivTopView];
 
     // Lock Screen Bottom View
@@ -137,15 +137,10 @@
     [self.uivBottomView addSubview:self.btnLogin];
     [self.view addSubview:self.uivBottomView];
     
-    // OAuth
+    // OAuthController
     self.appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
     self.oAuthController = self.appDelegate.oauthController;
     self.oAuthController.dataDelegate = self;
-    
-   // [self.oAuthController performSelector:@selector(requestOAuthAccess) withObject:Nil afterDelay:.1];
-    
-//    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
-    [self.oAuthController get:1 catsWithFormat:@"jpg"];
 }
 
 -(void)configureTableView{
@@ -181,16 +176,18 @@
 
 #pragma mark - Target Actions
 
-
 -(void)pressedLogin:(id)sender{
-    NSLog(@"pressed Login");
     [self.txtPassword resignFirstResponder];
-    
     if([self.txtUsername.text isEqualToString: @"Richard"] && [self.txtPassword.text isEqualToString:@"admin"]){
         [self lockScreen:NO];
     }
 }
 
+-(void)pressedGitHubLogin:(id)sender{
+    [self.oAuthController authenticateUserWithWebService:kGitHub];
+//    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
+//    [self.oAuthController get:1 catsWithFormat:@"jpg"];
+}
 #pragma mark - TextField
 
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
@@ -344,7 +341,7 @@
 
 -(void)didDownloadImage:(UIImage *)uiimage{
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-      self.imgCat.image = uiimage;
+        //self.imgCat.image = uiimage;
         [self.uivTopView setNeedsDisplay];
     }];
 //

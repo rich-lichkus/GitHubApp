@@ -15,16 +15,15 @@
 
 @end
 
-
 @interface CKOAuthController : NSObject
 
 @property (nonatomic, unsafe_unretained) id<CKOAuthControllerDataDelegate> dataDelegate;
 
--(void)authenticateUser:(NSURL*)url;
--(void)requestOAuthAccess;
+-(void)authenticateUserWithWebService:(kWebService)name;
+-(void)processWebServiceCallback:(NSURL*)url;
+
 
 -(void)getWeatherForCity:(NSString*)cityName andState:(NSString*)stateAbbreviation;
-
 -(void)get:(NSInteger)number catsWithFormat:(NSString*)format;
 
 @end

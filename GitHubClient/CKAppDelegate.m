@@ -17,9 +17,12 @@
     return YES;
 }
 
+// Open app via redirect
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
-
-    [self.oauthController authenticateUser:url];
+    NSLog(@"%@",url.path);
+    
+    [self.oauthController processWebServiceCallback:url];
+    
     return YES;
 }
 							

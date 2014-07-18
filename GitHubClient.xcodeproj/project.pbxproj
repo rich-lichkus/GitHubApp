@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F404AE71979E5180038DFC1 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0FD5F7FA19744948008A0CC4 /* XCTest.framework */; };
 		0F66C6241975DDB100B3DA3C /* CKOAuthController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F66C6231975DDB100B3DA3C /* CKOAuthController.m */; };
 		0F66C62C1978862600B3DA3C /* CKActivityIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0F66C62B1978862600B3DA3C /* CKActivityIndicator.m */; };
 		0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FBC7FDE1974565E0001DD67 /* PCGitHubGraphics.m */; };
@@ -79,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F404AE71979E5180038DFC1 /* XCTest.framework in Frameworks */,
 				0FD5F7DE19744948008A0CC4 /* CoreGraphics.framework in Frameworks */,
 				0FD5F7E019744948008A0CC4 /* UIKit.framework in Frameworks */,
 				0FD5F7DC19744948008A0CC4 /* Foundation.framework in Frameworks */,
@@ -479,6 +481,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GitHubClient/GitHubClient-Prefix.pch";
 				INFOPLIST_FILE = "GitHubClient/GitHubClient-Info.plist";
@@ -492,6 +498,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "GitHubClient/GitHubClient-Prefix.pch";
 				INFOPLIST_FILE = "GitHubClient/GitHubClient-Info.plist";
