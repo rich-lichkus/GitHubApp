@@ -12,6 +12,7 @@
 @optional
 - (void)didDownloadRepos:(NSMutableDictionary*)repoDictionary;
 - (void)didDownloadImage:(UIImage*)uiimage;
+- (void)didAuthenticateUser:(BOOL)flag;
 
 @end
 
@@ -22,6 +23,7 @@
 -(void)authenticateUserWithWebService:(kWebService)name;
 -(void)processWebServiceCallback:(NSURL*)url;
 
+-(void)gitHubRetrieveRepos;
 
 -(void)getWeatherForCity:(NSString*)cityName andState:(NSString*)stateAbbreviation;
 -(void)get:(NSInteger)number catsWithFormat:(NSString*)format;

@@ -110,6 +110,8 @@
                 case 200: { // All good
                     self.accessToken = [[self dictionaryGitHubFromData:data] objectForKey:@"access_token"];
                     NSAssert(self.accessToken, @"Do not have access token. Rectify immediately.");
+                    [self.dataDelegate didAuthenticateUser:YES];
+                    [self gitHubRetrieveRepos];
                 }
                     break;
                 default:
@@ -142,6 +144,36 @@
     }
     
     return tokenParams;
+}
+
+-(void)gitHubRetrieveRepos{
+    
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/user/repos?access_token=%@", self.accessToken]]];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if(!error){
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            switch (httpResponse.statusCode) {
+                case 200: // All good
+                {
+                    NSError *jsonError = [NSError new];
+                    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                    [self.dataDelegate didDownloadRepos:json];
+                }
+                    break;
+                default:
+                {
+                    NSLog(@"%li", (long)httpResponse.statusCode);
+                }
+                    break;
+            }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+
+    }];
+    
+    [dataTask resume];
 }
 
 #pragma mark - NSURLSession Practice

@@ -22,6 +22,7 @@
 
 @interface CKRootVC () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CKTopVCDelegate, UITextFieldDelegate, CKOAuthControllerDataDelegate>
 
+@property (strong, nonatomic) NSMutableDictionary *repoDictionary;
 @property (weak, nonatomic) CKAppDelegate *appDelegate;
 @property (weak, nonatomic) CKOAuthController *oAuthController;
 @property (weak, nonatomic) CKTopVC *topVC;
@@ -133,7 +134,7 @@
     self.btnLogin.layer.cornerRadius = 5;
     self.btnLogin.layer.masksToBounds = YES;
     [self.btnLogin addTarget:self action:@selector(pressedLogin:) forControlEvents:UIControlEventTouchUpInside];
-    NSLog(@"%@", NSStringFromCGRect(self.btnLogin.frame));
+    
     [self.uivBottomView addSubview:self.btnLogin];
     [self.view addSubview:self.uivBottomView];
     
@@ -347,6 +348,16 @@
 //
 }
 
+-(void)didDownloadRepos:(NSMutableDictionary *)repoDictionary{
+    [self.topVC setAllItemsArray: [repoDictionary mutableCopy]];
+}
+
+-(void)didAuthenticateUser:(BOOL)flag{
+    if(flag){
+        [self lockScreen:!flag];
+    }
+}
+
 #pragma mark - Lazy Loading
 
 //-(CKTopVC*)topVC{
@@ -363,6 +374,13 @@
         _navController.view.frame = self.view.frame;
     }
     return _navController;
+}
+
+-(NSMutableDictionary*)repoDictionary{
+    if(!_repoDictionary){
+        _repoDictionary = [[NSMutableDictionary alloc] init];
+    }
+    return  _repoDictionary;
 }
 
 #pragma mark - Memory

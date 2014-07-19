@@ -83,10 +83,15 @@
     if(tableView == self.searchDisplayController.searchResultsTableView){
         cell.textLabel.text = self.searchResults[indexPath.row];
     } else {
-        cell.textLabel.text = self.allItems[indexPath.row];
+        cell.textLabel.text = [self.allItems[indexPath.row] objectForKey:@"name"];
     }
     
     return cell;
+}
+
+-(void)setAllItemsArray:(NSMutableArray *)items{
+    self.allItems = items;
+    [self.tblDisplayItems reloadData];
 }
 
 #pragma mark - Lazy
@@ -100,7 +105,7 @@
 
 - (NSMutableArray*)allItems{
     if(!_allItems){
-        _allItems = [NSMutableArray arrayWithObjects:@"Richard", @"Spencer", @"Tod", @"Chicken", nil];
+        _allItems = [NSMutableArray new];
     }
     return _allItems;
 }
