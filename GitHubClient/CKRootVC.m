@@ -25,7 +25,7 @@
 @property (strong, nonatomic) NSMutableDictionary *repoDictionary;
 @property (weak, nonatomic) CKAppDelegate *appDelegate;
 @property (weak, nonatomic) CKOAuthController *oAuthController;
-@property (weak, nonatomic) CKTopVC *topVC;
+@property (strong, nonatomic) CKTopVC *topVC;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) NSArray *menuTitles;
 @property (strong, nonatomic) NSArray *menuImages;
@@ -348,14 +348,17 @@
 //
 }
 
--(void)didDownloadRepos:(NSMutableDictionary *)repoDictionary{
-    [self.topVC setAllItemsArray: [repoDictionary mutableCopy]];
-}
-
 -(void)didAuthenticateUser:(BOOL)flag{
     if(flag){
-        [self lockScreen:!flag];
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self lockScreen:!flag];
+        }];
     }
+}
+
+-(void)didDownloadRepos:(NSMutableDictionary *)repoDictionary{
+    
+    [((CKTopVC*)self.navController.viewControllers[0]) setAllItemsArray: [repoDictionary mutableCopy]];
 }
 
 #pragma mark - Lazy Loading

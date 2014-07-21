@@ -19,6 +19,8 @@
 
 @property (nonatomic, unsafe_unretained) id<CKTopVCDelegate> delegate;
 
+
+
 -(void)setAllItemsArray:(NSMutableArray*)items;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "CKTopVC.h"
 #import "PCGitHubGraphics.h"
+#import "CKOAuthController.h"
 
 @interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
@@ -25,6 +26,8 @@
 #pragma mark - View
 
 - (void)viewDidLoad {
+    
+    NSLog(@"topvc loaded");
     
     [self configureUIElements];
     
@@ -58,6 +61,15 @@
     return YES;
 }
 
+#pragma mark - Methods
+
+-(void)setAllItemsArray:(NSMutableArray *)items{
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        self.allItems = items;
+        [self.tblDisplayItems reloadData];
+    }];
+}
+
 #pragma mark - Table View
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -87,11 +99,6 @@
     }
     
     return cell;
-}
-
--(void)setAllItemsArray:(NSMutableArray *)items{
-    self.allItems = items;
-    [self.tblDisplayItems reloadData];
 }
 
 #pragma mark - Lazy
