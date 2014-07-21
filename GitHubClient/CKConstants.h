@@ -23,3 +23,7 @@ typedef NS_ENUM(NSInteger, kWebService) {
 typedef NS_ENUM(NSInteger, kCallbackType) {
     kOAuth = 0
 };
+
+typedef NS_ENUM(NSInteger, kAsset) {
+    kToken = 0
+};

@@ -356,8 +356,8 @@
     }
 }
 
--(void)didDownloadRepos:(NSMutableDictionary *)repoDictionary{
-    
+-(void)didDownloadRepos:(NSMutableArray *)repoDictionary
+{    
     [((CKTopVC*)self.navController.viewControllers[0]) setAllItemsArray: [repoDictionary mutableCopy]];
 }
 

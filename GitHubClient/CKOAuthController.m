@@ -8,11 +8,14 @@
 
 #import "CKOAuthController.h"
 #import <XCTest/XCTest.h>
+#import "CKGitHubUser.h"
+#import "CKGitHubRepo.h"
 
 #define APPLICATION_NAME @"iGitHub"
 
 // ! Parse Dependent Format: //key=value!key=value...key=value?
 #define GENERIC_CALLBACK_URI @"igithub://web_service=%zd!call_back=%zd"
+#define GENERIC_ACCESS_KEY @"web_service=%zd!asset=%zd"
 
 #define GITHUB_CLIENT_ID @"b7e10d79af8fd54aae59"
 #define GITHUB_CLIENT_SECRET @"cda8f903365f93abe4f75c4d176591fdb4111895"
@@ -21,6 +24,7 @@
 
 @interface CKOAuthController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate, NSURLSessionDataDelegate>
 
+@property (strong, nonatomic) CKGitHubUser *currentUser;
 @property (strong, nonatomic) NSString *accessToken;
 
 @end
@@ -30,12 +34,22 @@
 -(void)authenticateUserWithWebService:(kWebService)name{
     
     NSString *requestAuthenticationURL;
+    BOOL authenticated = NO;
     
     switch (name) {
         case kGitHub: {
-            // Requesting a token with access to user info and user's public repos
-            requestAuthenticationURL = [NSString stringWithFormat:GITHUB_OAUTH_URL,GITHUB_CLIENT_ID,[NSString stringWithFormat: GENERIC_CALLBACK_URI,kGitHub,kOAuth],@"user,public_repo"];
-            // On redirect, github will supply a temporary code in "code" parameter
+            NSString *access_token = [[NSUserDefaults standardUserDefaults] objectForKey:[NSString stringWithFormat:GENERIC_ACCESS_KEY,kGitHub,kToken]];
+            if(access_token){
+                self.accessToken = access_token;
+                NSAssert(self.accessToken, @"Github access token is nil. Rectify.");
+                authenticated = YES;
+                [self.dataDelegate didAuthenticateUser:YES];
+                [self gitHubRetrieveRepos];
+            } else {
+                // Requesting a token with access to user info and user's public reposs
+                requestAuthenticationURL = [NSString stringWithFormat:GITHUB_OAUTH_URL,GITHUB_CLIENT_ID,[NSString stringWithFormat: GENERIC_CALLBACK_URI,kGitHub,kOAuth],@"user,public_repo"];
+                // On redirect, github will supply a temporary code in "code" parameter
+            }
         }
             break;
         case kGoogle: {
@@ -51,10 +65,11 @@
         }
             break;
     }
-    
-    // Open request authentication url in safari
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:requestAuthenticationURL]];
-    // Redirect will call method in app delegate
+    if(!authenticated){
+        // Open request authentication url in safari
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:requestAuthenticationURL]];
+        // Redirect will call method in app delegate
+    }
 }
 
 -(void)processWebServiceCallback:(NSURL*)url {
@@ -100,7 +115,7 @@
     [urlRequest setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
     [urlRequest setHTTPBody:postData];
     
-    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSURLSessionDataTask *retrieveAccessToken = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         
         if(!error){
@@ -110,6 +125,7 @@
                 case 200: { // All good
                     self.accessToken = [[self dictionaryGitHubFromData:data] objectForKey:@"access_token"];
                     NSAssert(self.accessToken, @"Do not have access token. Rectify immediately.");
+                    [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:[NSString stringWithFormat:GENERIC_ACCESS_KEY,kGitHub,kToken]];
                     [self.dataDelegate didAuthenticateUser:YES];
                     [self gitHubRetrieveRepos];
                 }
@@ -149,7 +165,7 @@
 -(void)gitHubRetrieveRepos{
     
     NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/user/repos?access_token=%@", self.accessToken]]];
-    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
     NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if(!error){
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
@@ -157,8 +173,16 @@
                 case 200: // All good
                 {
                     NSError *jsonError = [NSError new];
-                    NSMutableDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
-                    [self.dataDelegate didDownloadRepos:json];
+                    NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                    
+                    self.currentUser = [[CKGitHubUser alloc] init];
+                    
+                    for(NSDictionary *repoDict in json){
+                        CKGitHubRepo *repo = [[CKGitHubRepo alloc] initWithGitHubJSON:repoDict];
+                        [self.currentUser.repos addObject:repo];
+                    }
+                
+                    [self.dataDelegate didDownloadRepos:self.currentUser.repos];
                 }
                     break;
                 default:

@@ -27,6 +27,8 @@
 		0FD5F80719744948008A0CC4 /* GitHubClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F80619744948008A0CC4 /* GitHubClientTests.m */; };
 		0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81119744A22008A0CC4 /* CKRootVC.m */; };
 		0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81519744B91008A0CC4 /* CKTopVC.m */; };
+		0FF15005197D988E00B07C98 /* CKGitHubUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF15004197D988E00B07C98 /* CKGitHubUser.m */; };
+		0FF15008197D98AA00B07C98 /* CKGitHubRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF15007197D98AA00B07C98 /* CKGitHubRepo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,10 @@
 		0FD5F81119744A22008A0CC4 /* CKRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRootVC.m; sourceTree = "<group>"; };
 		0FD5F81419744B91008A0CC4 /* CKTopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTopVC.h; sourceTree = "<group>"; };
 		0FD5F81519744B91008A0CC4 /* CKTopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTopVC.m; sourceTree = "<group>"; };
+		0FF15003197D988E00B07C98 /* CKGitHubUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKGitHubUser.h; path = GitHubClient/Model/CKGitHubUser.h; sourceTree = "<group>"; };
+		0FF15004197D988E00B07C98 /* CKGitHubUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKGitHubUser.m; path = GitHubClient/Model/CKGitHubUser.m; sourceTree = "<group>"; };
+		0FF15006197D98AA00B07C98 /* CKGitHubRepo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKGitHubRepo.h; path = GitHubClient/Model/CKGitHubRepo.h; sourceTree = "<group>"; };
+		0FF15007197D98AA00B07C98 /* CKGitHubRepo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKGitHubRepo.m; path = GitHubClient/Model/CKGitHubRepo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,6 +197,7 @@
 				0FD5F7EA19744948008A0CC4 /* CKAppDelegate.h */,
 				0FD5F7EB19744948008A0CC4 /* CKAppDelegate.m */,
 				0FD5F7ED19744948008A0CC4 /* Main.storyboard */,
+				0FF15002197D986400B07C98 /* Model */,
 				0F66C6251975DDC200B3DA3C /* View Controllers */,
 				0F66C6261975DDCF00B3DA3C /* Controllers */,
 				0FBC7FDC1974564C0001DD67 /* Media */,
@@ -246,6 +253,18 @@
 				0FD5F81519744B91008A0CC4 /* CKTopVC.m */,
 			);
 			name = "Top VC";
+			sourceTree = "<group>";
+		};
+		0FF15002197D986400B07C98 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0FF15003197D988E00B07C98 /* CKGitHubUser.h */,
+				0FF15004197D988E00B07C98 /* CKGitHubUser.m */,
+				0FF15006197D98AA00B07C98 /* CKGitHubRepo.h */,
+				0FF15007197D98AA00B07C98 /* CKGitHubRepo.m */,
+			);
+			name = Model;
+			path = ..;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -353,6 +372,8 @@
 				0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */,
 				0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */,
 				0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */,
+				0FF15008197D98AA00B07C98 /* CKGitHubRepo.m in Sources */,
+				0FF15005197D988E00B07C98 /* CKGitHubUser.m in Sources */,
 				0F66C62C1978862600B3DA3C /* CKActivityIndicator.m in Sources */,
 				0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */,
 			);

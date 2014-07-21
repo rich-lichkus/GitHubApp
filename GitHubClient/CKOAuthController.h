@@ -9,8 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @protocol CKOAuthControllerDataDelegate <NSObject>
+
 @optional
-- (void)didDownloadRepos:(NSMutableDictionary*)repoDictionary;
+- (void)didDownloadRepos:(NSMutableArray*)repoDictionary;
 - (void)didDownloadImage:(UIImage*)uiimage;
 - (void)didAuthenticateUser:(BOOL)flag;
 

@@ -9,11 +9,13 @@
 #import "CKTopVC.h"
 #import "PCGitHubGraphics.h"
 #import "CKOAuthController.h"
+#import "CKGitHubUser.h"
+#import "CKGitHubRepo.h"
 
 @interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
 @property (strong, nonatomic) NSMutableArray *allItems;
-@property (strong, nonatomic) NSMutableArray *searchResults;
+@property (strong, nonatomic) NSArray *searchResults;
 
 @property (weak, nonatomic) IBOutlet UITableView *tblDisplayItems;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bbiMenu;
@@ -54,12 +56,12 @@
 #pragma mark - Search
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF CONTAINS[cd] %@",searchString];
-    self.searchResults = [[self.allItems filteredArrayUsingPredicate:predicate] mutableCopy];
     
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@", searchString];
+    self.searchResults = [self.allItems filteredArrayUsingPredicate:predicate];
     return YES;
 }
+
 
 #pragma mark - Methods
 
@@ -91,11 +93,14 @@
     */
     UITableViewCell *cell = [self.tblDisplayItems dequeueReusableCellWithIdentifier:@"displayResult" forIndexPath:indexPath];
     
+    //TODO switch based on model menu selection
     
     if(tableView == self.searchDisplayController.searchResultsTableView){
-        cell.textLabel.text = self.searchResults[indexPath.row];
+        CKGitHubRepo *currentRepo = self.searchResults[indexPath.row];
+        cell.textLabel.text = currentRepo.name;
     } else {
-        cell.textLabel.text = [self.allItems[indexPath.row] objectForKey:@"name"];
+        CKGitHubRepo *currentRepo = self.allItems[indexPath.row];
+        cell.textLabel.text = currentRepo.name;
     }
     
     return cell;
@@ -103,9 +108,9 @@
 
 #pragma mark - Lazy
 
-- (NSMutableArray*)searchResults{
+- (NSArray*)searchResults{
     if(!_searchResults){
-        _searchResults = [NSMutableArray new];
+        _searchResults = [NSArray new];
     }
     return _searchResults;
 }
