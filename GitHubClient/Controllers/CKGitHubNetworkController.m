@@ -80,7 +80,7 @@
                     NSError *jsonError = [NSError new];
                     NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
                     [self.weak_currentUser updateUsersInfo:json];
-                    [self retrieveFollowing:self.weak_currentUser.following_url];
+                    [self retrieveFollowing:[self removeOptionalParams:self.weak_currentUser.following_url]];
                     [self retrieveFollowers:self.weak_currentUser.followers_url];
                     [self.dataDelegate didDownload:kAuthenticatedUser];
                 }
@@ -142,7 +142,7 @@
                     NSError *jsonError = [NSError new];
                     NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
                     [self.weak_currentUser addFollowingWithArrayOfDict:json];
-                    [self.dataDelegate didDownload:kUserFollowers];
+                    [self.dataDelegate didDownload:kUserFollowing];
                 }
                     break;
                 default:
@@ -160,5 +160,12 @@
     [dataTask resume];
 }
 
+                    
+#pragma mark - Parse Methods
+
+-(NSString*)removeOptionalParams:(NSString*)urlWithOptionals
+{
+    return [urlWithOptionals substringToIndex:[urlWithOptionals stringByDeletingLastPathComponent].length];
+}
 
 @end

@@ -20,7 +20,6 @@
 
 @property (nonatomic, unsafe_unretained) id<CKTopVCDelegate> delegate;
 
--(void)setAllItemsArray:(NSMutableArray*)items;
 -(void)selectedMenu:(kSelectedMenuOption)option;
 
 @end

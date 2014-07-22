@@ -21,7 +21,6 @@
     self = [super init];
     if(self){
         self.iD = infoDict[@"id"];
-        self.name = infoDict[@"name"];
         self.login = infoDict[@"login"];
         self.avatar_url = infoDict[@"avatar_url"];
         self.repos_url = infoDict[@"repos_url"];

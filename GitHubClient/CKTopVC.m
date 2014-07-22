@@ -66,7 +66,7 @@
 #pragma mark - Delegation
 -(void)didDownload:(kGitHubDataType)dataType{
     NSLog(@"Downloaded: %zd", dataType);
-    if(dataType == self.selectedMenu){
+    if(dataType == (kGitHubDataType)self.selectedMenu){
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             [self.tblDisplayItems reloadData];        
         }];
@@ -77,8 +77,28 @@
 
 -(BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchString:(NSString *)searchString {
     
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@", searchString];
+    NSPredicate *predicate;
+    
+    switch (self.selectedMenu) {
+        case kMyAccountMenu:
+        case kRepoMenu:
+        {
+            predicate = [NSPredicate predicateWithFormat:@"name BEGINSWITH[cd] %@", searchString];
+        }
+            break;
+        case kFollowersMenu:
+        case kFollowingMenu:
+        {
+            predicate = [NSPredicate predicateWithFormat:@"login BEGINSWITH[cd] %@", searchString];
+        }
+            break;
+        case kLogoutMenu: // N/A
+        case kBlankMenu:  // N/A
+            break;
+    }
+    
     self.searchResults = [self.allItems filteredArrayUsingPredicate:predicate];
+
     return YES;
 }
 
@@ -89,6 +109,7 @@
     switch (option) {
         case kMyAccountMenu:
             self.title = @"My Account";
+            self.allItems = [@[self.weak_currentUser]mutableCopy];
             break;
         case kRepoMenu:
             self.title = @"Repos";
@@ -102,10 +123,14 @@
             self.title = @"Following";
             self.allItems = self.weak_currentUser.following;
             break;
+        case kBlankMenu:  // N/A
+        case kLogoutMenu: // N/A
+            break;
     }
     
     [self.tblDisplayItems reloadData];
 }
+
 
 #pragma mark - Table View
 
@@ -165,7 +190,12 @@
     switch (self.selectedMenu) {
         case kMyAccountMenu:
         {
-            cell.textLabel.text = self.weak_currentUser.name;
+            if(tableView == self.searchDisplayController.searchResultsTableView){
+                CKGitHubUser *currentUser = self.searchResults[indexPath.row];
+                cell.textLabel.text = currentUser.name;
+            } else {
+                cell.textLabel.text = self.weak_currentUser.name;
+            }
         }
             break;
         case kRepoMenu:
@@ -180,14 +210,24 @@
         }
             break;
         case kFollowersMenu:
+        {
+            if(tableView == self.searchDisplayController.searchResultsTableView){
+                CKGitHubUser *currentUser = self.searchResults[indexPath.row];
+                cell.textLabel.text = currentUser.login;
+            } else {
+                CKGitHubUser *currentUser = self.weak_currentUser.followers[indexPath.row];
+                cell.textLabel.text = currentUser.login;
+            }
+            break;
+        }
         case kFollowingMenu:
         {
             if(tableView == self.searchDisplayController.searchResultsTableView){
                 CKGitHubUser *currentUser = self.searchResults[indexPath.row];
-                cell.textLabel.text = currentUser.name;
+                cell.textLabel.text = currentUser.login;
             } else {
-                CKGitHubRepo *currentUser = self.weak_currentUser.repos[indexPath.row];
-                cell.textLabel.text = currentUser.name;
+                CKGitHubUser *currentUser = self.weak_currentUser.following[indexPath.row];
+                cell.textLabel.text = currentUser.login;
             }
         }
             break;
