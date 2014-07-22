@@ -8,7 +8,6 @@
 
 #import "CKAppDelegate.h"
 #import "CKOAuthController.h"
-#import <XCTest/XCTest.h>
 #import "CKGitHubRepo.h"
 
 #define APPLICATION_NAME @"iGitHub"

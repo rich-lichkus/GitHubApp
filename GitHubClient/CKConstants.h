@@ -30,7 +30,6 @@ typedef NS_ENUM(NSInteger, kAsset) {
 
 typedef NS_ENUM(NSInteger, kSelectedMenuOption) {
     kMyAccountMenu = 0,
-    kBlankMenu,
     kRepoMenu,
     kFollowersMenu,
     kFollowingMenu,
@@ -39,9 +38,9 @@ typedef NS_ENUM(NSInteger, kSelectedMenuOption) {
 
 typedef NS_ENUM(NSInteger, kGitHubDataType){
     kAuthenticatedUser = 0,
-    kRepo =2,
-    kUserFollowers = 3,
-    kUserFollowing = 4
+    kRepo = 1,
+    kUserFollowers = 2,
+    kUserFollowing = 3
 };
 
 

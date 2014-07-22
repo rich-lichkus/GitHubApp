@@ -96,7 +96,6 @@
         }
             break;
         case kLogoutMenu: // N/A
-        case kBlankMenu:  // N/A
             break;
     }
     
@@ -127,14 +126,12 @@
             self.title = @"Following";
             self.allItems = self.weak_currentUser.following;
             break;
-        case kBlankMenu:  // N/A
         case kLogoutMenu: // N/A
             break;
     }
     
     [self.tblDisplayItems reloadData];
 }
-
 
 #pragma mark - Table View
 
@@ -167,11 +164,6 @@
             }
                 break;
             case kLogoutMenu:
-            {
-                // N/A
-            }
-                break;
-            case kBlankMenu:
             {
                 // N/A
             }
@@ -240,11 +232,6 @@
             // N/A
         }
             break;
-        case kBlankMenu:
-        {
-            // N/A
-        }
-            break;
     }
 
     return cell;
@@ -270,7 +257,6 @@
             self.segueUrlString = ((CKGitHubUser*)self.weak_currentUser.following[indexPath.row]).html_url;
         }
             break;
-        case kBlankMenu:
         case kLogoutMenu:
         case kMyAccountMenu: // N/A
             break;

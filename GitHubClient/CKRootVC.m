@@ -56,8 +56,8 @@
     self = [super initWithCoder:aDecoder];
     if(self){
         
-        self.menuTitles = @[@"Me",@"",@"Repos", @"Followers", @"Following", @"Logout"];
-        self.menuImages = @[[PCGitHubGraphics imageOfUser], @"",[PCGitHubGraphics imageOfRepo], [PCGitHubGraphics imageOfUser], [PCGitHubGraphics imageOfUser], [PCGitHubGraphics imageOfLocked]];
+        self.menuTitles = @[@"Me",@"Repos", @"Followers", @"Following", @"Logout"];
+        self.menuImages = @[[PCGitHubGraphics imageOfUser],[PCGitHubGraphics imageOfRepo], [PCGitHubGraphics imageOfUser], [PCGitHubGraphics imageOfUser], [PCGitHubGraphics imageOfLocked]];
     }
     return self;
 }
@@ -90,7 +90,7 @@
     self.uivTopView = [[UIView alloc] initWithFrame:CGRectMake(0, 0,
                                                               self.view.frame.size.width,
                                                               halfScreen)];
-    self.uivTopView.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.000];
+    self.uivTopView.backgroundColor = [UIColor whiteColor];
     
     self.btnGitHub = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-(uiElementWidth*.5),
                                                                self.uivTopView.frame.size.height - (4*TEXTFIELD_HEIGHT+4*TEXTFIELD_PADDING),
@@ -128,7 +128,7 @@
     // Lock Screen Bottom View
     self.uivBottomView = [[UIView alloc] initWithFrame:CGRectMake(0, halfScreen,
                                                                   self.view.frame.size.width, halfScreen)];
-    self.uivBottomView.backgroundColor = [UIColor colorWithWhite:0.902 alpha:1.000];
+    self.uivBottomView.backgroundColor = [UIColor whiteColor];
     
     self.btnLogin = [[UIButton alloc] initWithFrame:CGRectMake(self.view.center.x-(uiElementWidth*.5), 0, uiElementWidth, UIBUTTON_HEIGHT)];
     [self.btnLogin setTitle:@"Login" forState:UIControlStateNormal];
@@ -218,36 +218,23 @@
     
     CKMenuTableViewCell *menuCell = [tableView dequeueReusableCellWithIdentifier:@"menuCell" forIndexPath:indexPath];
     
-    if(indexPath.row != 1){
-        menuCell.textLabel.text = self.menuTitles[indexPath.row];
-        menuCell.imageView.image = self.menuImages[indexPath.row];
-        menuCell.textLabel.textColor = [UIColor whiteColor];
-    }
-    
-    menuCell.uivSeparator = [[UIView alloc] initWithFrame:CGRectMake(menuCell.textLabel.frame.origin.x,
-                                                                       menuCell.frame.size.height-CELL_SEPARATOR_HEIGHT,
-                                                                       menuCell.textLabel.frame.size.width,
-                                                                       CELL_SEPARATOR_HEIGHT)];
-    menuCell.uivSeparator.backgroundColor = [UIColor whiteColor];
-    [menuCell addSubview:menuCell.uivSeparator];
+    menuCell.textLabel.text = self.menuTitles[indexPath.row];
+    menuCell.imageView.image = self.menuImages[indexPath.row];
+    menuCell.textLabel.textColor = [UIColor whiteColor];
+
+//    menuCell.uivSeparator = [[UIView alloc] initWithFrame:CGRectMake(menuCell.textLabel.frame.origin.x,
+//                                                                       menuCell.frame.size.height-CELL_SEPARATOR_HEIGHT,
+//                                                                       menuCell.textLabel.frame.size.width,
+//                                                                       CELL_SEPARATOR_HEIGHT)];
+//    menuCell.uivSeparator.backgroundColor = [UIColor whiteColor];
+//    [menuCell addSubview:menuCell.uivSeparator];
     
     return menuCell;
 }
 
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
     
-    switch (indexPath.row) {
-        case kBlankMenu:
-        {
-            return NO;
-        }
-            break;
-        default:
-        {
-            return YES;
-        }
-            break;
-    }
+    return YES;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -305,7 +292,7 @@
         self.navController.view.frame = CGRectOffset(self.navController.view.frame,
                                              self.navController.view.frame.size.width*PERCENTAGE_VIEW_WIDTH,
                                              0);
-        self.navController.view.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
+        //self.navController.view.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
 
     } completion:^(BOOL finished) {
         
@@ -329,7 +316,7 @@
     self.leftMenuOpen = NO;
     [UIView animateWithDuration:.3 animations:^{
         self.navController.view.frame = self.view.frame;
-        self.navController.view.backgroundColor = [UIColor whiteColor];
+        //self.navController.view.backgroundColor = [UIColor whiteColor];
     } completion:^(BOOL finished) {
         
     }];
@@ -340,7 +327,7 @@
     int dy = authenticated ? -halfScreen : halfScreen;
 
     [UIView animateWithDuration:.5 animations:^{
-        self.view.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
+//        self.view.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
         self.uivTopView.frame = CGRectOffset(self.uivTopView.frame, 0, dy);
         self.uivBottomView.frame = CGRectOffset(self.uivBottomView.frame, 0, -dy);
     } completion:^(BOOL finished) {
