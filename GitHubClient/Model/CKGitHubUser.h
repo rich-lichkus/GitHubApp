@@ -10,8 +10,14 @@
 
 @interface CKGitHubUser : NSObject
 
+@property (strong, nonatomic) NSString *avatar_url;
+@property (strong, nonatomic) NSString *followers_url;
+@property (strong, nonatomic) NSString *html_url;
+@property (strong, nonatomic) NSString *iD;
+@property (strong, nonatomic) NSString *login;
+@property (strong, nonatomic) NSString *repos_url;
+
 @property (strong, nonatomic) NSMutableArray *privateRepos;
 @property (strong, nonatomic) NSMutableArray *repos;
-
 
 @end
