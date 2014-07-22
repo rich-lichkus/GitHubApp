@@ -21,6 +21,7 @@
     if(self){
         self.name = jsonDictionary[@"name"];
         self.private = jsonDictionary[@"private"];
+        self.html_url = jsonDictionary[@"html_url"];
     }
     return self;
 }

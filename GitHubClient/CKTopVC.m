@@ -8,6 +8,7 @@
 
 #import "CKAppDelegate.h"
 #import "CKTopVC.h"
+#import "CKDetailVC.h"
 #import "PCGitHubGraphics.h"
 #import "CKOAuthController.h"
 #import "CKGitHubUser.h"
@@ -20,6 +21,7 @@
 @property (nonatomic) kSelectedMenuOption selectedMenu;
 @property (strong, nonatomic) NSMutableArray *allItems;
 @property (strong, nonatomic) NSArray *searchResults;
+@property (strong, nonatomic) NSString *segueUrlString;
 
 @property (weak, nonatomic) IBOutlet UITableView *tblDisplayItems;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *bbiMenu;
@@ -46,6 +48,7 @@
     self.weak_currentUser = ((CKAppDelegate*)[[UIApplication sharedApplication] delegate]).currentUser;
     self.selectedMenu = kRepoMenu;
     self.allItems = self.weak_currentUser.repos;
+    self.segueUrlString = self.weak_currentUser.html_url;
 }
 
 - (void)configureUIElements {
@@ -110,6 +113,7 @@
         case kMyAccountMenu:
             self.title = @"My Account";
             self.allItems = [@[self.weak_currentUser]mutableCopy];
+            self.segueUrlString = self.weak_currentUser.html_url;
             break;
         case kRepoMenu:
             self.title = @"Repos";
@@ -244,6 +248,35 @@
     }
 
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    NSLog(@"did select Row");
+    
+    switch (self.selectedMenu) {
+        case kRepo:
+        {
+            self.segueUrlString = ((CKGitHubRepo*)self.weak_currentUser.repos[indexPath.row]).html_url;
+        }
+            break;
+        case kFollowersMenu:
+        {
+            self.segueUrlString = ((CKGitHubUser*)self.weak_currentUser.followers[indexPath.row]).html_url;
+        }
+            break;
+        case kFollowingMenu:
+        {
+            self.segueUrlString = ((CKGitHubUser*)self.weak_currentUser.following[indexPath.row]).html_url;
+        }
+            break;
+        case kBlankMenu:
+        case kLogoutMenu:
+        case kMyAccountMenu: // N/A
+            break;
+    }
+    [self.navigationController.viewControllers[1] setUrlString:self.segueUrlString];
+    //[self performSegueWithIdentifier:@"pushToDetailVC" sender:nil];
 }
 
 #pragma mark - Lazy

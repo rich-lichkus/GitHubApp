@@ -10,4 +10,6 @@
 
 @interface CKDetailVC : UIViewController
 
+-(void)setUrlString:(NSString*)urlString;
+
 @end

@@ -186,7 +186,6 @@
     NSLog(@"%@",proposedResponse);
 }
 
-
 #pragma mark - Parsing Functions
 -(NSMutableDictionary*)parseCallBackComponents:(NSURL*)callback{
     

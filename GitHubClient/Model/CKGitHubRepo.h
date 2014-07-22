@@ -12,6 +12,7 @@
 
 @property (nonatomic) BOOL private;
 @property (strong, nonatomic) NSString *name;
+@property (strong, nonatomic) NSString *html_url;
 
 -(instancetype)initWithGitHubJSON:(NSDictionary*)jsonDictionary;
 
