@@ -27,3 +27,12 @@ typedef NS_ENUM(NSInteger, kCallbackType) {
 typedef NS_ENUM(NSInteger, kAsset) {
     kToken = 0
 };
+
+typedef NS_ENUM(NSInteger, kSelectedMenuOption) {
+    kMyAccountMenu = 0,
+    kBlankMenu,
+    kRepoMenu,
+    kFollowersMenu,
+    kFollowingMenu,
+    kLogoutMenu
+};

@@ -25,7 +25,7 @@
 @property (strong, nonatomic) NSMutableDictionary *repoDictionary;
 @property (weak, nonatomic) CKAppDelegate *appDelegate;
 @property (weak, nonatomic) CKOAuthController *oAuthController;
-@property (strong, nonatomic) CKTopVC *topVC;
+@property (weak, nonatomic) CKTopVC *weak_topVC;
 @property (strong, nonatomic) UINavigationController *navController;
 @property (strong, nonatomic) NSArray *menuTitles;
 @property (strong, nonatomic) NSArray *menuImages;
@@ -150,14 +150,12 @@
 }
 
 -(void)configureTopVC{
-//    [self addChildViewController:self.topVC];
-//    [self.topVC didMoveToParentViewController:self];
-//    [self.view addSubview:self.topVC.view];
-    
     [self addChildViewController:self.navController];
     [self.navController didMoveToParentViewController:self];
     [self.view addSubview:self.navController.view];
-    ((CKTopVC*)self.navController.viewControllers[0]).delegate = self;
+    
+    self.weak_topVC = ((CKTopVC*)self.navController.viewControllers[0]);
+    self.weak_topVC.delegate = self;
 }
 
 -(void)configureGestureRecognizer{
@@ -167,7 +165,7 @@
     panGesture.maximumNumberOfTouches =1;
     panGesture.delegate = self;
     
-    [self.topVC.view addGestureRecognizer:panGesture];
+    [self.weak_topVC.view addGestureRecognizer:panGesture];
 }
 
 -(void)configureAnimations{
@@ -231,17 +229,33 @@
 }
 
 -(BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row ==1){
-        return NO;
-    } else {
-        return YES;
+    
+    switch (indexPath.row) {
+        case kBlankMenu:
+        {
+            return NO;
+        }
+            break;
+        default:
+        {
+            return YES;
+        }
+            break;
     }
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.row == 5){
-        [self lockScreen:YES];
+    
+    switch (indexPath.row) {
+        case kLogoutMenu:
+        {
+            [self lockScreen:YES];
+        }
+            break;
     }
+    
+    [self.weak_topVC selectedMenu:indexPath.row];
+    [self closeMenu];
 }
 
 #pragma mark - Gesture Recognizer
@@ -252,8 +266,8 @@
     
     UIPanGestureRecognizer *panGesture = (UIPanGestureRecognizer*)sender;
     
-    CGPoint translation = [panGesture translationInView:self.topVC.view];
-    CGPoint touchPoint = [panGesture locationInView:self.topVC.view];
+    CGPoint translation = [panGesture translationInView:self.weak_topVC.view];
+    CGPoint touchPoint = [panGesture locationInView:self.weak_topVC.view];
     
     if(touchPoint.x > 0 && touchPoint.x < 30) {         // Determine if left side bar
         NSLog(@"Left Bar");
@@ -362,14 +376,6 @@
 }
 
 #pragma mark - Lazy Loading
-
-//-(CKTopVC*)topVC{
-//    if(!_topVC){
-//        _topVC = [self.storyboard instantiateViewControllerWithIdentifier:@"topVC"];
-//        _topVC.view.frame = self.view.frame;
-//    }
-//    return _topVC;
-//}
 
 -(UINavigationController*)navController{
     if(!_navController){

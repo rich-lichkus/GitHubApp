@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Lichkus. All rights reserved.
 //
 
+#import "CKAppDelegate.h"
 #import "CKOAuthController.h"
 #import <XCTest/XCTest.h>
 #import "CKGitHubUser.h"
@@ -24,12 +25,20 @@
 
 @interface CKOAuthController () <NSURLSessionDelegate, NSURLSessionDownloadDelegate, NSURLSessionDataDelegate>
 
-@property (strong, nonatomic) CKGitHubUser *currentUser;
+@property (weak, nonatomic) CKGitHubUser *weak_currentUser;
 @property (strong, nonatomic) NSString *accessToken;
 
 @end
 
 @implementation CKOAuthController
+
+-(instancetype)init{
+    self = [super init];
+    if(self){
+        self.weak_currentUser = ((CKAppDelegate*)[[UIApplication sharedApplication] delegate]).currentUser;
+    }
+    return self;
+}
 
 -(void)authenticateUserWithWebService:(kWebService)name{
     
@@ -45,6 +54,7 @@
                 authenticated = YES;
                 [self.dataDelegate didAuthenticateUser:YES];
                 [self gitHubRetrieveRepos];
+                [self gitHubRetrieveUser];
             } else {
                 // Requesting a token with access to user info and user's public reposs
                 requestAuthenticationURL = [NSString stringWithFormat:GITHUB_OAUTH_URL,GITHUB_CLIENT_ID,[NSString stringWithFormat: GENERIC_CALLBACK_URI,kGitHub,kOAuth],@"user,public_repo"];
@@ -128,6 +138,7 @@
                     [[NSUserDefaults standardUserDefaults] setObject:self.accessToken forKey:[NSString stringWithFormat:GENERIC_ACCESS_KEY,kGitHub,kToken]];
                     [self.dataDelegate didAuthenticateUser:YES];
                     [self gitHubRetrieveRepos];
+                    [self gitHubRetrieveUser];
                 }
                     break;
                 default:
@@ -164,8 +175,8 @@
 
 -(void)gitHubRetrieveRepos{
     
-    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/user/repos?access_token=%@", self.accessToken]]];
     NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/user/repos?access_token=%@", self.accessToken]]];
     NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         if(!error){
             NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
@@ -175,14 +186,12 @@
                     NSError *jsonError = [NSError new];
                     NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
                     
-                    self.currentUser = [[CKGitHubUser alloc] init];
-                    
                     for(NSDictionary *repoDict in json){
                         CKGitHubRepo *repo = [[CKGitHubRepo alloc] initWithGitHubJSON:repoDict];
-                        [self.currentUser.repos addObject:repo];
+                        [self.weak_currentUser.repos addObject:repo];
                     }
                 
-                    [self.dataDelegate didDownloadRepos:self.currentUser.repos];
+                    [self.dataDelegate didDownloadRepos:self.weak_currentUser.repos];
                 }
                     break;
                 default:
@@ -199,6 +208,75 @@
     
     [dataTask resume];
 }
+
+-(void)gitHubRetrieveUser{
+    
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"https://api.github.com/user?access_token=%@", self.accessToken]]];
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if(!error){
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            switch (httpResponse.statusCode) {
+                case 200: // All good
+                {
+                    NSError *jsonError = [NSError new];
+                    NSDictionary *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+                    
+                    [self gitHubRetrieveFollowers:json[@"followers_url"]];
+//                    [self gitHubRetrieveFollowing:json[0][@"following_url"]];
+                    
+//                    [self.dataDelegate didDownloadRepos:self.weak_currentUser.repos];
+                }
+                    break;
+                default:
+                {
+                    NSLog(@"%li", (long)httpResponse.statusCode);
+                }
+                    break;
+            }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+    }];
+    
+    [dataTask resume];
+}
+
+-(void)gitHubRetrieveFollowers:(NSString*)url_string{
+    NSURLSession *urlSession = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration]];
+    NSURLRequest *urlRequest = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@?access_token=%@", url_string, self.accessToken]]];
+    NSURLSessionDataTask *dataTask = [urlSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        if(!error){
+            NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
+            switch (httpResponse.statusCode) {
+                case 200: // All good
+                {
+                    NSError *jsonError = [NSError new];
+                    NSMutableArray *json = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers error:&jsonError];
+
+//                    [self.dataDelegate didDownloadRepos:self.weak_currentUser.repos];
+                }
+                    break;
+                default:
+                {
+                    NSLog(@"%li", (long)httpResponse.statusCode);
+                }
+                    break;
+            }
+        } else {
+            NSLog(@"%@", error.localizedDescription);
+        }
+        
+    }];
+    
+    [dataTask resume];
+}
+
+-(void)gitHubRetrieveFollowing:(NSURL*)url{
+
+}
+
 
 #pragma mark - NSURLSession Practice
 

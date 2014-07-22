@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Richard Lichkus. All rights reserved.
 //
 
+#import "CKAppDelegate.h"
 #import "CKTopVC.h"
 #import "PCGitHubGraphics.h"
 #import "CKOAuthController.h"
@@ -14,6 +15,9 @@
 
 @interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
 
+@property (weak, nonatomic) CKGitHubUser *weak_currentUser;
+
+@property (nonatomic) kSelectedMenuOption selectedMenu;
 @property (strong, nonatomic) NSMutableArray *allItems;
 @property (strong, nonatomic) NSArray *searchResults;
 
@@ -29,7 +33,7 @@
 
 - (void)viewDidLoad {
     
-    NSLog(@"topvc loaded");
+    [self configureCurrentUser];
     
     [self configureUIElements];
     
@@ -37,6 +41,11 @@
 }
 
 #pragma mark - Configurations
+
+-(void)configureCurrentUser{
+    self.weak_currentUser = ((CKAppDelegate*)[[UIApplication sharedApplication] delegate]).currentUser;
+    self.selectedMenu = kRepoMenu;
+}
 
 - (void)configureUIElements {
     [self.bbiMenu setImage:[PCGitHubGraphics imageOfThreeBarMenu]];
@@ -72,15 +81,64 @@
     }];
 }
 
+-(void)selectedMenu:(kSelectedMenuOption)option{
+    self.selectedMenu = option;
+    switch (option) {
+        case kMyAccountMenu:
+            self.title = @"My Account";
+            break;
+        case kRepoMenu:
+            self.title = @"Repos";
+            break;
+        case kFollowersMenu:
+            self.title = @"Followers";
+            break;
+        case kFollowingMenu:
+            self.title = @"Following";
+            break;
+    }
+    
+    [self.tblDisplayItems reloadData];
+}
+
 #pragma mark - Table View
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     
+    NSInteger numRows =0;
+    
     if(tableView == self.searchDisplayController.searchResultsTableView){
-        return self.searchResults.count;
+        numRows = self.searchResults.count;
     } else {
-        return self.allItems.count;
+        switch (self.selectedMenu) {
+            case kMyAccountMenu:
+            {
+                
+            }
+                break;
+            case kRepoMenu:
+            {
+                numRows = self.weak_currentUser.repos.count;
+            }
+                break;
+            case kFollowersMenu:
+            {
+                
+            }
+                break;
+            case kFollowingMenu:
+            {
+                
+            }
+                break;
+            case kLogoutMenu:
+            {
+                
+            }
+                break;
+        }
     }
+    return numRows;
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -93,15 +151,41 @@
     */
     UITableViewCell *cell = [self.tblDisplayItems dequeueReusableCellWithIdentifier:@"displayResult" forIndexPath:indexPath];
     
-    //TODO switch based on model menu selection
-    
-    if(tableView == self.searchDisplayController.searchResultsTableView){
-        CKGitHubRepo *currentRepo = self.searchResults[indexPath.row];
-        cell.textLabel.text = currentRepo.name;
-    } else {
-        CKGitHubRepo *currentRepo = self.allItems[indexPath.row];
-        cell.textLabel.text = currentRepo.name;
+    switch (self.selectedMenu) {
+        case kMyAccountMenu:
+        {
+            
+        }
+            break;
+        case kRepoMenu:
+        {
+            if(tableView == self.searchDisplayController.searchResultsTableView){
+                CKGitHubRepo *currentRepo = self.searchResults[indexPath.row];
+                cell.textLabel.text = currentRepo.name;
+            } else {
+                CKGitHubRepo *currentRepo = self.weak_currentUser.repos[indexPath.row];
+                cell.textLabel.text = currentRepo.name;
+            }
+        }
+            break;
+        case kFollowersMenu:
+        {
+            
+        }
+            break;
+        case kFollowingMenu:
+        {
+            
+        }
+            break;
+        case kLogoutMenu:
+        {
+        
+        }
+            break;
     }
+    
+    
     
     return cell;
 }

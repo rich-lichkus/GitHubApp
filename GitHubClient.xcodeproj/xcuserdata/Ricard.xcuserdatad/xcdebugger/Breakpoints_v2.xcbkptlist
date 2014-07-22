@@ -9,13 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GitHubClient/CKOAuthController.m"
-            timestampString = "427669832.234834"
+            filePath = "GitHubClient/CKTopVC.m"
+            timestampString = "427674194.651517"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "176"
-            endingLineNumber = "176"
-            landmarkName = "-gitHubRetrieveRepos"
+            startingLineNumber = "47"
+            endingLineNumber = "47"
+            landmarkName = "-configureCurrentUser"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,29 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GitHubClient/CKOAuthController.m"
-            timestampString = "427671490.7474"
+            filePath = "GitHubClient/CKTopVC.m"
+            timestampString = "427698706.175204"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "185"
-            endingLineNumber = "185"
-            landmarkName = "-gitHubRetrieveRepos"
+            startingLineNumber = "154"
+            endingLineNumber = "154"
+            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "GitHubClient/CKOAuthController.m"
+            timestampString = "427699840.690434"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "225"
+            endingLineNumber = "225"
+            landmarkName = "-gitHubRetrieveUser"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
