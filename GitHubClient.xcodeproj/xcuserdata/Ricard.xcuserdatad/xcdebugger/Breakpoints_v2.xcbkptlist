@@ -10,7 +10,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GitHubClient/CKTopVC.m"
-            timestampString = "427674194.651517"
+            timestampString = "427745712.730201"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "47"
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "GitHubClient/CKTopVC.m"
-            timestampString = "427698706.175204"
+            timestampString = "427749736.640277"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "154"
-            endingLineNumber = "154"
+            startingLineNumber = "165"
+            endingLineNumber = "165"
             landmarkName = "-tableView:cellForRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -38,16 +38,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "GitHubClient/CKOAuthController.m"
-            timestampString = "427699840.690434"
+            filePath = "GitHubClient/Controllers/CKGitHubNetworkController.m"
+            timestampString = "427748108.694921"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "225"
-            endingLineNumber = "225"
-            landmarkName = "-gitHubRetrieveUser"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
+            landmarkName = "-retrieveUser"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

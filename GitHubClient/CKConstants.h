@@ -36,3 +36,17 @@ typedef NS_ENUM(NSInteger, kSelectedMenuOption) {
     kFollowingMenu,
     kLogoutMenu
 };
+
+typedef NS_ENUM(NSInteger, kGitHubDataType){
+    kAuthenticatedUser = 0,
+    kRepo =2,
+    kUserFollowers = 3,
+    kUserFollowing = 4
+};
+
+
+
+
+
+
+

@@ -13,7 +13,7 @@
 #import "CKGitHubUser.h"
 #import "CKGitHubRepo.h"
 
-@interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate>
+@interface CKTopVC() <UITableViewDataSource, UITableViewDelegate, UISearchDisplayDelegate, CKGitHubNCDataDelegate>
 
 @property (weak, nonatomic) CKGitHubUser *weak_currentUser;
 
@@ -45,6 +45,7 @@
 -(void)configureCurrentUser{
     self.weak_currentUser = ((CKAppDelegate*)[[UIApplication sharedApplication] delegate]).currentUser;
     self.selectedMenu = kRepoMenu;
+    self.allItems = self.weak_currentUser.repos;
 }
 
 - (void)configureUIElements {
@@ -56,10 +57,20 @@
     self.tblDisplayItems.dataSource = self;
 }
 
-#pragma mark - Delegate
+#pragma mark - Target Action
 
 - (IBAction)pressedMenu:(id)sender {
     [self.delegate menuClicked];
+}
+
+#pragma mark - Delegation
+-(void)didDownload:(kGitHubDataType)dataType{
+    NSLog(@"Downloaded: %zd", dataType);
+    if(dataType == self.selectedMenu){
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            [self.tblDisplayItems reloadData];        
+        }];
+    }
 }
 
 #pragma mark - Search
@@ -71,15 +82,7 @@
     return YES;
 }
 
-
 #pragma mark - Methods
-
--(void)setAllItemsArray:(NSMutableArray *)items{
-    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        self.allItems = items;
-        [self.tblDisplayItems reloadData];
-    }];
-}
 
 -(void)selectedMenu:(kSelectedMenuOption)option{
     self.selectedMenu = option;
@@ -89,12 +92,15 @@
             break;
         case kRepoMenu:
             self.title = @"Repos";
+            self.allItems = self.weak_currentUser.repos;
             break;
         case kFollowersMenu:
             self.title = @"Followers";
+            self.allItems = self.weak_currentUser.followers;
             break;
         case kFollowingMenu:
             self.title = @"Following";
+            self.allItems = self.weak_currentUser.following;
             break;
     }
     
@@ -113,7 +119,7 @@
         switch (self.selectedMenu) {
             case kMyAccountMenu:
             {
-                
+                numRows = 1;
             }
                 break;
             case kRepoMenu:
@@ -123,17 +129,22 @@
                 break;
             case kFollowersMenu:
             {
-                
+                numRows = self.weak_currentUser.followers.count;
             }
                 break;
             case kFollowingMenu:
             {
-                
+                numRows = self.weak_currentUser.following.count;
             }
                 break;
             case kLogoutMenu:
             {
-                
+                // N/A
+            }
+                break;
+            case kBlankMenu:
+            {
+                // N/A
             }
                 break;
         }
@@ -154,7 +165,7 @@
     switch (self.selectedMenu) {
         case kMyAccountMenu:
         {
-            
+            cell.textLabel.text = self.weak_currentUser.name;
         }
             break;
         case kRepoMenu:
@@ -169,24 +180,29 @@
         }
             break;
         case kFollowersMenu:
-        {
-            
-        }
-            break;
         case kFollowingMenu:
         {
-            
+            if(tableView == self.searchDisplayController.searchResultsTableView){
+                CKGitHubUser *currentUser = self.searchResults[indexPath.row];
+                cell.textLabel.text = currentUser.name;
+            } else {
+                CKGitHubRepo *currentUser = self.weak_currentUser.repos[indexPath.row];
+                cell.textLabel.text = currentUser.name;
+            }
         }
             break;
         case kLogoutMenu:
         {
-        
+            // N/A
+        }
+            break;
+        case kBlankMenu:
+        {
+            // N/A
         }
             break;
     }
-    
-    
-    
+
     return cell;
 }
 

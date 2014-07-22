@@ -13,7 +13,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.currentUser = [CKGitHubUser new];
-    self.oauthController = [CKOAuthController new];
+    self.oauthController = [[CKOAuthController alloc] initWithCurrentUser:self.currentUser];
+    self.gitHubNC = [[CKGitHubNetworkController alloc] initWithCurrentUser:self.currentUser];
     // Override point for customization after application launch.
     return YES;
 }

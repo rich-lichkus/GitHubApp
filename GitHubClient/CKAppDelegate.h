@@ -8,12 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "CKOAuthController.h"
+#import "CKGitHubNetworkController.h"
 #import "CKGitHubUser.h"
 
 @interface CKAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CKOAuthController *oauthController;
+@property (strong, nonatomic) CKGitHubNetworkController *gitHubNC;
 @property (strong, nonatomic) CKGitHubUser *currentUser;
 
 @end

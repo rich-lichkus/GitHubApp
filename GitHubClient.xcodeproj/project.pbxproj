@@ -27,6 +27,8 @@
 		0FD5F80719744948008A0CC4 /* GitHubClientTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F80619744948008A0CC4 /* GitHubClientTests.m */; };
 		0FD5F81219744A22008A0CC4 /* CKRootVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81119744A22008A0CC4 /* CKRootVC.m */; };
 		0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FD5F81519744B91008A0CC4 /* CKTopVC.m */; };
+		0FE3B3E2197EC7B900814787 /* CKGitHubNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3B3E1197EC7B900814787 /* CKGitHubNetworkController.m */; };
+		0FE3B3E5197EC80600814787 /* CKOpenWeatherNetworkController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FE3B3E4197EC80600814787 /* CKOpenWeatherNetworkController.m */; };
 		0FF15005197D988E00B07C98 /* CKGitHubUser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF15004197D988E00B07C98 /* CKGitHubUser.m */; };
 		0FF15008197D98AA00B07C98 /* CKGitHubRepo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0FF15007197D98AA00B07C98 /* CKGitHubRepo.m */; };
 /* End PBXBuildFile section */
@@ -74,6 +76,10 @@
 		0FD5F81119744A22008A0CC4 /* CKRootVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKRootVC.m; sourceTree = "<group>"; };
 		0FD5F81419744B91008A0CC4 /* CKTopVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CKTopVC.h; sourceTree = "<group>"; };
 		0FD5F81519744B91008A0CC4 /* CKTopVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CKTopVC.m; sourceTree = "<group>"; };
+		0FE3B3E0197EC7B900814787 /* CKGitHubNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKGitHubNetworkController.h; path = Controllers/CKGitHubNetworkController.h; sourceTree = "<group>"; };
+		0FE3B3E1197EC7B900814787 /* CKGitHubNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKGitHubNetworkController.m; path = Controllers/CKGitHubNetworkController.m; sourceTree = "<group>"; };
+		0FE3B3E3197EC80600814787 /* CKOpenWeatherNetworkController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKOpenWeatherNetworkController.h; path = Controllers/CKOpenWeatherNetworkController.h; sourceTree = "<group>"; };
+		0FE3B3E4197EC80600814787 /* CKOpenWeatherNetworkController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKOpenWeatherNetworkController.m; path = Controllers/CKOpenWeatherNetworkController.m; sourceTree = "<group>"; };
 		0FF15003197D988E00B07C98 /* CKGitHubUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKGitHubUser.h; path = GitHubClient/Model/CKGitHubUser.h; sourceTree = "<group>"; };
 		0FF15004197D988E00B07C98 /* CKGitHubUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CKGitHubUser.m; path = GitHubClient/Model/CKGitHubUser.m; sourceTree = "<group>"; };
 		0FF15006197D98AA00B07C98 /* CKGitHubRepo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CKGitHubRepo.h; path = GitHubClient/Model/CKGitHubRepo.h; sourceTree = "<group>"; };
@@ -119,6 +125,10 @@
 			children = (
 				0F66C6221975DDB100B3DA3C /* CKOAuthController.h */,
 				0F66C6231975DDB100B3DA3C /* CKOAuthController.m */,
+				0FE3B3E0197EC7B900814787 /* CKGitHubNetworkController.h */,
+				0FE3B3E1197EC7B900814787 /* CKGitHubNetworkController.m */,
+				0FE3B3E3197EC80600814787 /* CKOpenWeatherNetworkController.h */,
+				0FE3B3E4197EC80600814787 /* CKOpenWeatherNetworkController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -370,6 +380,8 @@
 				0FD5F7EC19744948008A0CC4 /* CKAppDelegate.m in Sources */,
 				0FD5F7E819744948008A0CC4 /* main.m in Sources */,
 				0FBC7FE31974570F0001DD67 /* CKMenuTableViewCell.m in Sources */,
+				0FE3B3E5197EC80600814787 /* CKOpenWeatherNetworkController.m in Sources */,
+				0FE3B3E2197EC7B900814787 /* CKGitHubNetworkController.m in Sources */,
 				0FD5F81619744B91008A0CC4 /* CKTopVC.m in Sources */,
 				0FBC7FDF1974565E0001DD67 /* PCGitHubGraphics.m in Sources */,
 				0FF15008197D98AA00B07C98 /* CKGitHubRepo.m in Sources */,

@@ -7,12 +7,13 @@
 //
 
 #import "CKRootVC.h"
+
+#import "CKAppDelegate.h"
 #import "CKTopVC.h"
 #import "CKMenuTableViewCell.h"
 #import "PCGitHubGraphics.h"
-#import "CKConstants.h"
-#import "CKAppDelegate.h"
 #import "CKOAuthController.h"
+#import "CKGitHubNetworkController.h"
 
 #define CELL_SEPARATOR_HEIGHT 1
 #define PERCENTAGE_VIEW_WIDTH .70
@@ -22,15 +23,20 @@
 
 @interface CKRootVC () <UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, CKTopVCDelegate, UITextFieldDelegate, CKOAuthControllerDataDelegate>
 
+@property (weak, nonatomic) CKAppDelegate *weak_appDelegate;
+@property (weak, nonatomic) CKOAuthController *weak_oAuthController;    // Strong ref in app del
+@property (weak, nonatomic) CKGitHubNetworkController *weak_gitHubNC;   // Strong ref in app del
+@property (weak, nonatomic) CKTopVC *weak_topVC;                        // Strong ref in nav controller
+
 @property (strong, nonatomic) NSMutableDictionary *repoDictionary;
-@property (weak, nonatomic) CKAppDelegate *appDelegate;
-@property (weak, nonatomic) CKOAuthController *oAuthController;
-@property (weak, nonatomic) CKTopVC *weak_topVC;
-@property (strong, nonatomic) UINavigationController *navController;
+
 @property (strong, nonatomic) NSArray *menuTitles;
 @property (strong, nonatomic) NSArray *menuImages;
 @property (nonatomic, getter = isRightMenuOpen) BOOL rightMenuOpen;
 @property (nonatomic, getter = isLeftMenuOpen) BOOL leftMenuOpen;
+
+@property (strong, nonatomic) UINavigationController *navController;
+@property (weak, nonatomic) IBOutlet UITableView *tblMenu;
 
 @property (strong, nonatomic) UIView *uivTopView;
 @property (strong, nonatomic) UIButton *btnGitHub;
@@ -39,8 +45,6 @@
 
 @property (strong, nonatomic) UIView *uivBottomView;
 @property (strong, nonatomic) UIButton *btnLogin;
-
-@property (weak, nonatomic) IBOutlet UITableView *tblMenu;
 
 @end
 
@@ -138,10 +142,13 @@
     [self.uivBottomView addSubview:self.btnLogin];
     [self.view addSubview:self.uivBottomView];
     
+    self.weak_appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
     // OAuthController
-    self.appDelegate = (CKAppDelegate *)[UIApplication sharedApplication].delegate;
-    self.oAuthController = self.appDelegate.oauthController;
-    self.oAuthController.dataDelegate = self;
+    self.weak_oAuthController = self.weak_appDelegate.oauthController;
+    self.weak_oAuthController.dataDelegate = self;
+    // GitHub N. Controller
+    self.weak_gitHubNC = self.weak_appDelegate.gitHubNC;
+    self.weak_gitHubNC.dataDelegate = self.weak_topVC;
 }
 
 -(void)configureTableView{
@@ -156,6 +163,7 @@
     
     self.weak_topVC = ((CKTopVC*)self.navController.viewControllers[0]);
     self.weak_topVC.delegate = self;
+//    [self.weak_topVC selectedMenu:kRepoMenu];
 }
 
 -(void)configureGestureRecognizer{
@@ -178,14 +186,12 @@
 -(void)pressedLogin:(id)sender{
     [self.txtPassword resignFirstResponder];
     if([self.txtUsername.text isEqualToString: @"Richard"] && [self.txtPassword.text isEqualToString:@"admin"]){
-        [self lockScreen:NO];
+        [self unlockScreen:YES];
     }
 }
 
 -(void)pressedGitHubLogin:(id)sender{
-    [self.oAuthController authenticateUserWithWebService:kGitHub];
-//    [self.oAuthController getWeatherForCity:@"London" andState:@"uk"];
-//    [self.oAuthController get:1 catsWithFormat:@"jpg"];
+    [self.weak_oAuthController authenticateUserWithWebService:kGitHub];
 }
 #pragma mark - TextField
 
@@ -249,7 +255,7 @@
     switch (indexPath.row) {
         case kLogoutMenu:
         {
-            [self lockScreen:YES];
+            [self unlockScreen:NO];
         }
             break;
     }
@@ -329,16 +335,16 @@
     }];
 }
 
--(void)lockScreen:(BOOL)lock{
+-(void)unlockScreen:(BOOL)authenticated{
     int halfScreen = self.view.frame.size.height*.5;
-    int dy = lock ? halfScreen : -halfScreen;
+    int dy = authenticated ? -halfScreen : halfScreen;
 
     [UIView animateWithDuration:.5 animations:^{
         self.view.backgroundColor = [UIColor colorWithWhite:0.702 alpha:1.000];
         self.uivTopView.frame = CGRectOffset(self.uivTopView.frame, 0, dy);
         self.uivBottomView.frame = CGRectOffset(self.uivBottomView.frame, 0, -dy);
     } completion:^(BOOL finished) {
-        if(lock){
+        if(authenticated){
             [self closeMenu];
         }
     }];
@@ -363,16 +369,11 @@
 }
 
 -(void)didAuthenticateUser:(BOOL)flag{
-    if(flag){
-        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-            [self lockScreen:!flag];
-        }];
+    if(flag){   //authenticated
+        [self.weak_gitHubNC setAccessToken:[self.weak_oAuthController gitHubAccessToken]];
+        [self.weak_gitHubNC retrieveAllData];
+        [self unlockScreen:flag];
     }
-}
-
--(void)didDownloadRepos:(NSMutableArray *)repoDictionary
-{    
-    [((CKTopVC*)self.navController.viewControllers[0]) setAllItemsArray: [repoDictionary mutableCopy]];
 }
 
 #pragma mark - Lazy Loading
